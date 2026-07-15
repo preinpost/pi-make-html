@@ -16,21 +16,40 @@ skills/make-html/
 ## 설치
 
 ```bash
-# 로컬 경로로 설치 (사용자 설정)
-pi install ~/dev/pi-make-html
-
-# 프로젝트 설정에 설치
-pi install -l ~/dev/pi-make-html
-
-# 설치 없이 한 번만 사용
-pi -e ~/dev/pi-make-html
+# git 저장소에서 설치 (권장)
+pi install git:github.com/preinpost/pi-make-html
 ```
 
-git/npm 배포 후에는 다음 형태도 가능하다.
+특정 버전으로 고정하려면 태그/커밋 ref 를 붙인다.
 
 ```bash
-pi install git:github.com/<user>/pi-make-html
+pi install git:github.com/preinpost/pi-make-html@v0.1.0
 ```
+
+그 밖의 설치 방식:
+
+```bash
+# 프로젝트 설정에 설치 (팀 공유 — .pi/settings.json)
+pi install -l git:github.com/preinpost/pi-make-html
+
+# 설치 없이 한 번만 사용
+pi -e git:github.com/preinpost/pi-make-html
+
+# 로컬 클론에서 개발용으로 설치
+pi install ~/dev/pi-make-html
+```
+
+### 업데이트 / 제거
+
+```bash
+# 최신 커밋으로 갱신 (ref 미지정 시 main 추적)
+pi update --extensions
+
+# 제거
+pi remove git:github.com/preinpost/pi-make-html
+```
+
+> **버전 관리:** ref 없이 설치하면 `main` 브랜치를 추적하며, `pi update --extensions` 를 실행한 시점의 최신 커밋으로 갱신된다(자동 갱신 아님). `@v0.1.0` 처럼 태그로 설치하면 해당 ref 에 고정되고, 버전을 올리려면 새 태그로 다시 `pi install ...@새태그` 한다.
 
 ## 사용
 
