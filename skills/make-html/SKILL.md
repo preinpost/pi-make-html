@@ -1,34 +1,34 @@
 ---
 name: make-html
-description: 에디토리얼 톤의 HTML 보고서/리포트를 이 디자인 시스템 규칙에 맞춰 생성한다. 사용자가 "HTML 보고서로 만들어줘", "리포트 형식으로", "이 디자인시스템으로", "이 PDF/자료를 보고서로 변환해줘"처럼 HTML 리포트 생성을 명시적으로 요청했을 때만 사용한다. 단순 질문·요약·읽기·데이터 표만 필요한 경우에는 적용하지 않는다.
+description: Generate editorial-tone HTML reports that follow this design system's rules. Use only when the user explicitly requests HTML report generation, e.g. "HTML 보고서로 만들어줘", "리포트 형식으로", "이 디자인시스템으로", "이 PDF/자료를 보고서로 변환해줘". Do not apply for simple questions, summaries, read-only requests, or when only a data table is needed.
 ---
 
 # make-html — HTML Design System
 
-보고서/리포트 HTML을 만들 때 따르는 디자인 규칙(컬러 토큰, 타이포그래피, 커버, 사이드 네비, 섹션, 콜아웃, 푸터)을 담은 스킬.
+A skill that captures the design rules (color tokens, typography, cover, side nav, sections, callouts, footer) to follow when building report HTML.
 
-## 언제 적용하나 (When to Apply) — READ FIRST
+## When to Apply — READ FIRST
 
-이 디자인 시스템은 **사용자가 명시적으로 HTML 보고서/리포트 생성을 요청했을 때만** 적용한다.
+Apply this design system **only when the user explicitly requests HTML report generation.**
 
-- ✅ 적용: "HTML 보고서로 만들어줘", "리포트 형식으로", "이 디자인시스템으로", "이 PDF/자료를 보고서로 변환해줘", 이전 대화에서 같은 보고서를 이어 작성 중인 경우
-- ❌ 적용 안 함: 단순 질문·답변, 요약·정리·노트, 읽기 전용("읽어줘/알려줘/확인해줘"), 데이터/표만 필요, 코드 리뷰·디버깅, PPT·DOCX·마크다운 등 다른 형식이 명시된 경우
-- 애매하면 물어본다: "HTML 보고서로 만들까요, 아니면 텍스트로 정리할까요?"
+- ✅ Apply: "make it an HTML report", "in report format", "with this design system", "convert this PDF/material into a report", or when continuing to write the same report from an earlier conversation.
+- ❌ Do not apply: simple Q&A, summaries/notes, read-only requests ("read it for me / tell me / check it"), data/table-only needs, code review/debugging, or when another format (PPT, DOCX, Markdown, etc.) is specified.
+- If ambiguous, ask: "Should I make this an HTML report, or organize it as text?"
 
-## 사용 방법
+## How to Use
 
-1. **먼저 전체 규칙을 읽는다.** 생성 전 반드시 [references/design-system.md](references/design-system.md)를 처음부터 끝까지 읽는다. 컬러 토큰·타입 스케일·레이아웃 토큰·컴포넌트 마크업이 모두 여기에 정의되어 있으며, 임의 값을 쓰지 않고 정의된 토큰만 사용한다.
-2. **예시를 참고한다.** 완성된 산출물 형태는 [assets/example-service-prd.html](assets/example-service-prd.html)에서 확인한다. 커버 → 사이드 네비 → 섹션 → 콜아웃 → 푸터의 전체 구조와 실제 CSS 사용례가 담겨 있다.
-3. **단일 HTML 파일로 산출한다.** CSS는 `<style>`에 인라인하고 외부 의존성 없이 단독 실행 가능한 `.html` 하나로 만든다.
-4. **체크리스트로 검수한다.** 완성 후 design-system.md의 "13. 작성·운영 체크리스트"를 항목별로 확인한다.
+1. **Read the full ruleset first.** Before generating, read [references/design-system.md](references/design-system.md) from start to finish. Color tokens, the type scale, layout tokens, and component markup are all defined there; use only the defined tokens and never arbitrary values.
+2. **Reference the example.** Check the finished output shape in [assets/example-service-prd.html](assets/example-service-prd.html). It contains the full structure (cover → side nav → sections → callouts → footer) and real CSS usage.
+3. **Output a single HTML file.** Inline the CSS in `<style>` and produce a single self-contained `.html` file with no external dependencies.
+4. **Verify with the checklist.** After finishing, go through "13. Authoring & Operations Checklist" in design-system.md item by item.
 
-## 핵심 원칙 (요약)
+## Core Principles (Summary)
 
-- 에디토리얼 톤 — 마케팅 페이지가 아닌 출판물 톤. 그라데이션·그림자 최소화, 검정 잉크 + 라인 위주.
-- 타이포그래피 우선 — 컴포넌트보다 타입 스케일이 먼저. 모든 텍스트는 정의된 토큰 사용.
-- 하나의 강조 — 페이지당 컬러 강조는 1~2회. 기본은 모두 `--ink` 계열.
-- 숫자는 또렷하게 — 모든 수치 텍스트에 `font-feature-settings: "tnum"`.
-- 공백을 두려워하지 않기 — 넉넉한 섹션 여백.
-- 한국어는 단어 단위 줄바꿈(`word-break: keep-all`) 필수.
+- Editorial tone — a publication tone, not a marketing page. Minimize gradients and shadows; favor black ink + lines.
+- Typography first — the type scale comes before components. All text uses the defined tokens.
+- One emphasis — limit color emphasis to 1–2 times per page. The default is all `--ink` family.
+- Numbers must be crisp — apply `font-feature-settings: "tnum"` to all numeric text.
+- Don't fear whitespace — generous section spacing.
+- Korean requires word-level line breaking (`word-break: keep-all`).
 
-세부 규칙·토큰·마크업 전문은 references/design-system.md 참조.
+For the detailed rules, tokens, and full markup, see references/design-system.md.

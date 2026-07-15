@@ -1,82 +1,82 @@
 # HTML Design System
 
-보고서/리포트 HTML을 만들 때 따르는 디자인 규칙.
+Design rules to follow when building report HTML.
 
 ---
 
-## 사용 조건 (When to Apply) — **READ FIRST**
+## When to Apply — **READ FIRST**
 
-> 이 디자인 시스템은 **사용자가 명시적으로 HTML 보고서/리포트 생성을 요청했을 때만** 적용한다. 그 외의 경우엔 절대 자동 적용하지 않는다.
+> Apply this design system **only when the user explicitly requests HTML report generation.** Never auto-apply it in any other case.
 
-### ✅ 적용하는 경우 (사용자가 명시적으로 요청)
-- "HTML 보고서로 만들어줘"
-- "리포트 형식으로", "이 디자인시스템으로", "디자인시스템으로"
-- "리포트/보고서 HTML 만들어줘"
-- "이 PDF/자료를 보고서로 변환해줘"
-- 이전 대화에서 같은 보고서를 이어 작성 중인 경우
+### ✅ Apply (user explicitly requests)
+- "make it an HTML report"
+- "in report format", "with this design system", "using the design system"
+- "make a report/document HTML"
+- "convert this PDF/material into a report"
+- when continuing to write the same report from an earlier conversation
 
-### ❌ 적용하지 않는 경우 (요청이 없거나 다른 작업)
-- **단순 질문·답변** — "이게 뭐야?", "왜 이렇게 돼?", "어떻게 해?"
-- **요약·정리·노트** — "정리해줘", "요약해줘" (별도 형식 지정 없음)
-- **읽기 전용** — "이 PDF 읽어줘", "내용 알려줘", "확인해줘"
-- **데이터/표만 필요** — 마크다운 표·JSON·코드블록으로 충분한 경우
-- **코드 리뷰·디버깅·설계 문의** — 이 디자인시스템과 무관
-- **다른 형식이 명시됨** — PPT, DOCX, 마크다운, 단일 페이지 웹 등
+### ❌ Do not apply (no request, or a different task)
+- **Simple Q&A** — "what is this?", "why does it work this way?", "how do I do it?"
+- **Summaries/notes** — "organize this", "summarize this" (with no format specified)
+- **Read-only** — "read this PDF", "tell me the contents", "check it"
+- **Data/table only** — when a Markdown table, JSON, or code block is enough
+- **Code review / debugging / design questions** — unrelated to this design system
+- **Another format is specified** — PPT, DOCX, Markdown, single-page web, etc.
 
-### 판단 규칙
-1. 사용자가 "HTML", "보고서", "리포트", "NDS", "이 디자인" 중 하나를 명시했는가? → **NO면 적용 금지**.
-2. 관련 자료가 첨부되었더라도, 요청이 "읽어줘/알려줘/정리해줘"면 **적용 금지**. 마크다운/평문으로 응답한다.
-3. 애매하면 **물어본다**: "HTML 보고서로 만들까요, 아니면 텍스트로 정리할까요?"
-
----
-
-## 0. 디자인 원칙 (Principles)
-
-1. **에디토리얼 톤** — 마케팅 페이지가 아닌 출판물 톤. 그라데이션·그림자 최소화, 검정 잉크 + 라인 위주.
-2. **타이포그래피 우선** — 컴포넌트보다 타입 스케일이 먼저. 모든 텍스트는 정의된 토큰을 사용.
-3. **하나의 강조** — 페이지당 컬러 강조는 1~2회. 기본은 모두 `--ink` 계열.
-4. **숫자는 또렷하게** — 모든 수치 텍스트에 `font-feature-settings: "tnum"`.
-5. **공백을 두려워하지 않기** — `--section-py: 72px`, 마지막 섹션 ↔ 푸터는 160px.
+### Decision rules
+1. Did the user explicitly mention one of "HTML", "report", "document", "NDS", or "this design"? → **If NO, do not apply.**
+2. Even if related material is attached, if the request is "read it / tell me / summarize it", **do not apply.** Respond in Markdown/plain text.
+3. If ambiguous, **ask**: "Should I make this an HTML report, or organize it as text?"
 
 ---
 
-## 1. 컬러 토큰 (Color Tokens)
+## 0. Principles
 
-### 1.1 브랜드
+1. **Editorial tone** — a publication tone, not a marketing page. Minimize gradients and shadows; favor black ink + lines.
+2. **Typography first** — the type scale comes before components. All text uses the defined tokens.
+3. **One emphasis** — limit color emphasis to 1–2 times per page. The default is all `--ink` family.
+4. **Numbers must be crisp** — apply `font-feature-settings: "tnum"` to all numeric text.
+5. **Don't fear whitespace** — `--section-py: 72px`, and 160px between the last section ↔ footer.
+
+---
+
+## 1. Color Tokens
+
+### 1.1 Brand
 ```css
 --brand-black:  #191919;
 --brand-white:  #ffffff;
---brand-blue:   #0F80F6;   /* 강조 / 데이터 하이라이트 */
---brand-red:    #EB453D;   /* 위험 / 차감 / 대외비 닷 */
---brand-green:  #01A058;   /* 긍정 추세 / 마진 */
+--brand-blue:   #0F80F6;   /* emphasis / data highlight */
+--brand-red:    #EB453D;   /* danger / deduction / confidential dot */
+--brand-green:  #01A058;   /* positive trend / margin */
 --brand-orange: #FF9000;
 --brand-yellow: #FCF683;
 --brand-brown:  #DAC0A9;
 --brand-gray:   #DCDCDC;
 ```
 
-### 1.2 잉크 (텍스트 위계)
+### 1.2 Ink (text hierarchy)
 ```css
---ink:   #191919;   /* 본문 강조 / 헤딩 */
---ink-2: #2e2e2e;   /* 본문 기본 */
---ink-3: #545454;   /* 보조 본문 / 설명 */
---ink-4: #767676;   /* 캡션 / 라벨 */
---ink-5: #a1a1a1;   /* 구분점 / 비활성 */
+--ink:   #191919;   /* body emphasis / headings */
+--ink-2: #2e2e2e;   /* default body */
+--ink-3: #545454;   /* secondary body / descriptions */
+--ink-4: #767676;   /* captions / labels */
+--ink-5: #a1a1a1;   /* separators / disabled */
 --ink-6: #c8c8c8;
 ```
 
-### 1.3 표면 / 라인
+### 1.3 Surface / Line
 ```css
 --surface:    #ffffff;
---surface-1:  #f7f7f7;   /* 콜아웃 배경 */
---surface-2:  #efefef;   /* 차트 트랙 */
+--surface-1:  #f7f7f7;   /* callout background */
+--surface-2:  #efefef;   /* chart track */
 
---line:        #191919;  /* 강한 구분선 (테이블 상하단) */
+--line:        #191919;  /* strong divider (table top/bottom) */
 --line-soft:   #e3e3e3;
 --line-softer: #ededed;
 ```
 
-### 1.4 시멘틱
+### 1.4 Semantic
 ```css
 --accent:  #0F80F6;   /* = brand-blue */
 --danger:  #EB453D;   /* = brand-red  */
@@ -85,102 +85,102 @@
 
 ---
 
-## 2. 타이포그래피 (Typography)
+## 2. Typography
 
-### 2.1 폰트 패밀리
+### 2.1 Font family
 
-> **모든 타이포그래피는 Pretendard 단일.** 본문·헤딩·라벨·메타·숫자 — 어느 컨텍스트든 동일한 폰트 패밀리를 쓴다. 다른 sans-serif/serif/monospace 패밀리(Inter, Noto Sans, JetBrains Mono 등)는 사용하지 않는다.
+> **All typography is a single family: Pretendard.** Body, headings, labels, meta, numbers — every context uses the same font family. Do not use other sans-serif/serif/monospace families (Inter, Noto Sans, JetBrains Mono, etc.).
 
 ```css
 --font-sans:    "Pretendard", sans-serif;
---font-mono:    "Pretendard", sans-serif;   /* mono 슬롯도 Pretendard — 한·영이 섞여도 행간·높이 안정 */
+--font-mono:    "Pretendard", sans-serif;   /* the mono slot is also Pretendard — line-height/height stay stable even when Korean & English mix */
 --font-display: "Pretendard", sans-serif;
 ```
 
-CDN 로드:
+CDN load:
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 ```
 
-#### 왜 Pretendard 하나만 쓰는가
-- **한·영 혼용 시 행간·높이가 깨지지 않음** — 영문 폰트(Inter 등)에 한글 fallback이 따로 들어가면 라인 간격이 어긋남.
-- 숫자 등폭 정렬이 필요할 땐 폰트 교체가 아닌 `font-feature-settings: "tnum"`(또는 `class="tnum"`)으로 처리.
-- 한 폰트 family로 통일하면 토큰 단순화 + 로딩 비용도 작아짐(weight만 다르게).
+#### Why only Pretendard
+- **Line-height/height don't break when Korean & English mix** — when an English font (like Inter) has a separate Korean fallback, line spacing goes out of alignment.
+- When monospaced number alignment is needed, handle it with `font-feature-settings: "tnum"` (or `class="tnum"`) instead of swapping fonts.
+- Unifying to one font family simplifies tokens and lowers loading cost (only weights differ).
 
-#### Weight 사용
-| 용도 | weight |
+#### Weight usage
+| Use | weight |
 |---|---|
-| 본문(`<body>`) | 500 |
-| 보조 본문 / 라벨 | 500 ~ 600 |
-| 모노/캡션·라벨 | 600 |
-| 헤딩(H1~H4)·강조(strong) | 700 |
-| 디스플레이(커버 타이틀 등) | 700 |
+| Body (`<body>`) | 500 |
+| Secondary body / labels | 500 ~ 600 |
+| Mono / caption / label | 600 |
+| Headings (H1–H4) / emphasis (strong) | 700 |
+| Display (cover title, etc.) | 700 |
 
-### 2.2 타입 스케일 (~1.27× 모듈러)
+### 2.2 Type scale (~1.27× modular)
 
-**규칙: 가장 작은 폰트 사이즈는 12px. 그 이하 금지.**
+**Rule: the smallest font size is 12px. Nothing smaller.**
 
-| 토큰 | 크기 | 용도 |
+| Token | Size | Use |
 |---|---|---|
-| `--fs-display-1` | **56px** | 커버 타이틀 / KPI 큰 수치 |
-| `--fs-display-2` | **40px** | TOC 섹션 타이틀 |
-| `--fs-h1`        | **48px** | **PART(그룹) 헤더** — 여러 섹션을 묶는 상위 분할 |
-| `--fs-h2`        | **40px** | **섹션 H2** — 본문 시작 헤딩 (bold) |
-| `--fs-h3`        | **20px** | 섹션 소제목 / 카드·컴포넌트 안의 헤딩 |
-| `--fs-h4`        | **15px** | 보조 라벨 헤딩 (표 위 제목엔 사용 안 함 — H3 통일) |
-| `--fs-lede`      | **17px** | 섹션 도입 문장(리드) |
-| `--fs-body`      | **15px** | 본문 |
-| `--fs-body-sm`   | **13px** | 보조 본문 / TOC 항목 / 푸터 제목 |
-| `--fs-caption`   | **12px** | 캡션 |
-| `--fs-micro`     | **12px** | 라벨 / 모노 메타 |
-| `--fs-micro-xs`  | **12px** | 최소 사이즈 (12px 미만 금지) |
+| `--fs-display-1` | **56px** | cover title / large KPI figures |
+| `--fs-display-2` | **40px** | TOC section title |
+| `--fs-h1`        | **48px** | **PART (group) header** — top-level division grouping several sections |
+| `--fs-h2`        | **40px** | **section H2** — the heading that starts the body (bold) |
+| `--fs-h3`        | **20px** | section subheading / heading inside a card/component |
+| `--fs-h4`        | **15px** | secondary label heading (not used above tables — unify to H3) |
+| `--fs-lede`      | **17px** | section intro sentence (lede) |
+| `--fs-body`      | **15px** | body |
+| `--fs-body-sm`   | **13px** | secondary body / TOC items / footer title |
+| `--fs-caption`   | **12px** | caption |
+| `--fs-micro`     | **12px** | labels / mono meta |
+| `--fs-micro-xs`  | **12px** | minimum size (nothing under 12px) |
 
-#### 헤딩 위계 — 라인과 마진 규칙 (중요)
+#### Heading hierarchy — line & margin rules (important)
 
-> **선(divider)은 H1·H2만 가진다. H3·H4는 절대 라인을 가지지 않는다.**
-> **마진은 위계에 따라 줄어든다: H1(최대) > H2 > H3 > H4(최소).** H4도 본문에서 명확히 분리되도록 충분한 마진은 가진다.
+> **Only H1 & H2 have a divider. H3 & H4 never have a line.**
+> **Margins shrink with hierarchy: H1 (largest) > H2 > H3 > H4 (smallest).** Even H4 keeps enough margin to be clearly separated from the body.
 
-| 헤딩 | 크기 | 라인 | margin-top |
+| Heading | Size | Line | margin-top |
 |---|---|---|---|
-| **H1 (PART 헤더)** | **48px** / weight 700 | **6px solid 상단** (가장 굵음) | **120px** (가장 큼) — 새 챕터급 분할 |
-| **H2 (섹션)** | **40px** / weight 700 | **3px solid 상단** (`.section-tag` 또는 동등) | section padding 72px |
-| **H3 (소제목)** | 20px / weight 700 | **선 없음** | 56px |
-| **H4 (작은 라벨)** | 15px / weight 700 | **선 없음** | 36px |
+| **H1 (PART header)** | **48px** / weight 700 | **6px solid top** (thickest) | **120px** (largest) — new chapter-level division |
+| **H2 (section)** | **40px** / weight 700 | **3px solid top** (`.section-tag` or equivalent) | section padding 72px |
+| **H3 (subheading)** | 20px / weight 700 | **no line** | 56px |
+| **H4 (small label)** | 15px / weight 700 | **no line** | 36px |
 
-표 위 헤딩이 H3였다면 라인은 자동으로 빠진다 (디자인시스템 규칙). 만약 라인이 있던 컴포넌트(`.block-head` 등)였다면 라인을 제거한다.
+If a heading above a table was an H3, its line is automatically removed (design system rule). If it was a component that used to have a line (`.block-head`, etc.), remove the line.
 
-### 2.3 라인 하이트 토큰
+### 2.3 Line-height tokens
 ```css
---lh-tight:  1.15;   /* 디스플레이 */
---lh-snug:   1.25;   /* 헤딩 */
+--lh-tight:  1.15;   /* display */
+--lh-snug:   1.25;   /* headings */
 --lh-normal: 1.4;
---lh-loose:  1.7;    /* 본문 / lede */
+--lh-loose:  1.7;    /* body / lede */
 ```
 
-### 2.4 자간 (Letter-spacing) — 한글에 맞춘 보수적 자간 정책
+### 2.4 Letter-spacing — a conservative policy tuned for Korean
 
-> **본문 영역의 헤딩(H2~H4)·소제목·번호 prefix·작은 라벨류는 자간 0으로 통일.** 한글 텍스트는 자간을 음수/양수로 조정하면 오히려 가독성이 떨어진다. 영문 mono uppercase 라벨에 양수 자간(스페이싱)을 주는 디자인 컨벤션도 한글이 함께 등장하면 어색하게 늘어진다.
+> **Body-area headings (H2–H4), subheadings, number prefixes, and small labels are all unified to letter-spacing 0.** Adjusting Korean text with negative/positive letter-spacing actually hurts readability. The design convention of giving positive letter-spacing (spacing) to English mono uppercase labels also looks awkwardly stretched when Korean appears alongside.
 >
-> 양수 자간은 **커버·푸터의 chip/eyebrow** 같은 의도된 영문 영역에만 남긴다.
+> Keep positive letter-spacing only for intentional English areas like the **cover/footer chip/eyebrow**.
 
-| 영역 | letter-spacing |
+| Area | letter-spacing |
 |---|---|
-| Display 1 (커버 타이틀, 56px) | `-0.04em` |
-| Display 2 (큰 디스플레이, 40px) | `-0.035em` |
-| H1 (PART 헤더, 48px) | `0` (또는 `-0.02em` 이내) |
-| H2 (섹션, 40px) | **`0`** |
-| H3 / H4 (소제목 · 표 라벨) | **`0`** |
-| `.num-prefix` (섹션 번호) | **`0`** |
-| 본문 라벨류 (`.kpi-label`, `.metric-label`, `.block-head .meta`, `.ph-label`, `.step-num`, `.bar-legend` 등) | **`0`** |
-| lede / body | `-0.005em` (한글 보정) |
-| **커버·푸터의 영문 chip/eyebrow** (`.cover-eyebrow`, `.cover-confidential`, `.cover-meta-label`, `.footer-confidential`) | `+0.14~0.18em` (편집 자산 컨텍스트, 보존) |
+| Display 1 (cover title, 56px) | `-0.04em` |
+| Display 2 (large display, 40px) | `-0.035em` |
+| H1 (PART header, 48px) | `0` (or within `-0.02em`) |
+| H2 (section, 40px) | **`0`** |
+| H3 / H4 (subheading · table label) | **`0`** |
+| `.num-prefix` (section number) | **`0`** |
+| Body labels (`.kpi-label`, `.metric-label`, `.block-head .meta`, `.ph-label`, `.step-num`, `.bar-legend`, etc.) | **`0`** |
+| lede / body | `-0.005em` (Korean adjustment) |
+| **Cover/footer English chip/eyebrow** (`.cover-eyebrow`, `.cover-confidential`, `.cover-meta-label`, `.footer-confidential`) | `+0.14~0.18em` (editorial asset context, preserved) |
 
-#### 적용 원칙
-- 본문 헤딩과 라벨에는 자간을 두지 않는다 — 한글 보고서의 톤을 유지.
-- 양수 자간은 "표지/푸터의 영문 메타 chip" 정도에만 한정. 본문 mono 라벨에 무분별하게 양수 자간을 주지 않는다.
-- 음수 자간은 36px 이상 큰 디스플레이 텍스트에서만 한글 보정용으로 사용 (`-0.025em` ~ `-0.04em`).
+#### Application principles
+- No letter-spacing on body headings and labels — keeps the tone of a Korean report.
+- Restrict positive letter-spacing to roughly the "English meta chip of cover/footer" only. Do not indiscriminately give positive letter-spacing to body mono labels.
+- Use negative letter-spacing only on large display text (36px+) for Korean adjustment (`-0.025em` ~ `-0.04em`).
 
-### 2.5 본문(`<body>`) 기본
+### 2.5 Body (`<body>`) defaults
 ```css
 font-family: var(--font-sans);
 font-size:   var(--fs-body);     /* 15px */
@@ -192,10 +192,10 @@ font-feature-settings: "ss01", "cv11", "tnum";
 
 ---
 
-## 3. 한국어 표기 규칙 (Korean Writing Rules)
+## 3. Korean Writing Rules
 
-### 3.1 단어 단위 줄바꿈 (필수)
-한글이 문장 중간에서 음절 단위로 잘려 어색하게 끊기는 걸 방지.
+### 3.1 Word-level line breaking (required)
+Prevents Korean from being awkwardly broken mid-word at the syllable level.
 
 ```css
 body {
@@ -204,15 +204,15 @@ body {
 }
 ```
 
-### 3.2 헤딩 표기
-- 헤딩은 명사형 (예: "수익 구조", "시장 기회")으로 통일. 의문형 헤딩(`~인가?`)은 사용하지 않음.
+### 3.2 Heading style
+- Unify headings to noun form (e.g., "Revenue Structure", "Market Opportunity"). Do not use interrogative headings ("...?").
 
-> 문체(종결어미·어투)는 부서·문서 성격에 따라 다르므로 디자인시스템에서 규정하지 않는다. 작성자 재량에 맡긴다.
+> Prose style (sentence endings, tone) varies by department and document type, so the design system does not prescribe it. Leave it to the author's discretion.
 
-### 3.3 리드(lede) — 섹션 인트로 (시스템 룰)
-섹션 헤더 직하단의 도입 문장이다. 길이는 1~2문단, 폭은 본문(`--max`)을 따른다. 내용·문체는 작성자 재량.
+### 3.3 Lede — section intro (system rule)
+The intro sentence right below the section header. Length is 1–2 paragraphs; width follows the body (`--max`). Content and style are at the author's discretion.
 
-> **한 줄 요약 + 본문 + 콜아웃의 3중 중복 금지** (컴포넌트 사용 규칙). 짧은 lede 아래 같은 내용의 본문 단락을 또 두면 반복된다. 인트로는 lede(1~2문단)로 통일하고, 콜아웃은 별도의 takeaway가 있을 때만 둔다(8장 참고).
+> **No triple duplication of one-line summary + body + callout** (component usage rule). Putting a body paragraph with the same content right below a short lede is repetitive. Unify the intro as a lede (1–2 paragraphs), and add a callout only when there is a separate takeaway (see Section 8).
 
 ```css
 .lede {
@@ -222,34 +222,34 @@ body {
   color: var(--ink-3);
   font-weight: 500;
 }
-.lede + .lede { margin-top: 16px; }   /* 2문단 인트로일 때 단락 간격 */
-.lede b { color: var(--ink); font-weight: 700; }   /* 핵심 어구 강조 */
+.lede + .lede { margin-top: 16px; }   /* paragraph gap for a 2-paragraph intro */
+.lede b { color: var(--ink); font-weight: 700; }   /* emphasize key phrases */
 ```
 
-### 3.4 숫자 / 영문 / 한글 혼용
-- 영문·숫자에는 자동으로 Pretendard의 라틴 글리프가 사용됨. 별도 처리 불필요.
-- 표/KPI 등 정렬이 중요한 곳: `font-feature-settings: "tnum"` 또는 `class="tnum"`.
+### 3.4 Mixing numbers / English / Korean
+- Latin glyphs from Pretendard are used automatically for English and numbers. No extra handling needed.
+- Where alignment matters, such as tables/KPIs: `font-feature-settings: "tnum"` or `class="tnum"`.
 
 ---
 
-## 4. 레이아웃 토큰 (Layout Tokens)
+## 4. Layout Tokens
 
 ```css
---max:        800px;    /* 본문 영역 max-width (커버/섹션/푸터 공통) */
---narrow:      760px;   /* 좁은 본문 (긴 글 위주 섹션) */
---pad-x:        56px;   /* 좌우 패딩 (모바일 24px) */
---section-py:   72px;   /* 섹션 상하 패딩 (모바일 64px) */
+--max:        800px;    /* body area max-width (shared by cover/section/footer) */
+--narrow:      760px;   /* narrow body (long-form text sections) */
+--pad-x:        56px;   /* left/right padding (mobile 24px) */
+--section-py:   72px;   /* section top/bottom padding (mobile 64px) */
 ```
 
-- **모든 영역은 `--max`로 정렬**된다 (커버, 본문, TOC 섹션, 푸터). 가독성과 정렬 일관성의 근간.
-- 본문 ↔ 사이드 네비게이션 간격: **40px** (1500px 이상에서 일정).
-- 마지막 섹션 ↔ 푸터: `margin-top: 160px` (모바일 96px).
+- **Every area aligns to `--max`** (cover, body, TOC sections, footer). This is the basis of readability and alignment consistency.
+- Gap between body ↔ side navigation: **40px** (constant at 1500px and above).
+- Last section ↔ footer: `margin-top: 160px` (mobile 96px).
 
 ---
 
-## 5. 커버(Cover) 구조
+## 5. Cover Structure
 
-검은색 풀블리드 + 60vh 최소 높이 + `--max` 정렬.
+Black full-bleed + 60vh min-height + `--max` alignment.
 
 ```html
 <section class="cover" id="cover">
@@ -257,13 +257,13 @@ body {
     <div class="cover-head">
       <div class="cover-head-main">
         <div class="cover-eyebrow">Payment &amp; Coupon Market Analysis</div>
-        <h1 class="cover-title">결제 및 쿠폰 시장 분석</h1>
+        <h1 class="cover-title">Payment &amp; Coupon Market Analysis</h1>
         <p class="cover-summary">
-          국내·미국·중국·일본 4개 시장의 페이 결제 환경을 거래액과 수익 구조 관점에서 비교 분석합니다.<br>
-          결제 사업의 중장기 전략 수립을 위한 기초 자료입니다.
+          A comparative analysis of the pay-payment environment across four markets — Korea, US, China, Japan — from a transaction-volume and revenue-structure perspective.<br>
+          Baseline material for establishing a mid-to-long-term strategy for the payments business.
         </p>
       </div>
-      <span class="cover-confidential">대외비</span>
+      <span class="cover-confidential">CONFIDENTIAL</span>
     </div>
     <div class="cover-meta">
       <div class="cover-meta-item"><span class="cover-meta-label">Date</span>   <span class="cover-meta-value mono">-</span></div>
@@ -274,97 +274,97 @@ body {
 </section>
 ```
 
-### 5.1 구조 규칙
-- 배경 — **subtle radial gradient** 레이어 위에 `--ink` (#191919) 베이스. 글자 `--surface` (#fff).
+### 5.1 Structural rules
+- Background — `--ink` (#191919) base beneath a **subtle radial gradient** layer. Text is `--surface` (#fff).
   ```css
   .cover {
     background:
-      radial-gradient(ellipse 70% 55% at 25% 0%, rgba(15, 128, 246, 0.18), transparent 65%),   /* 좌상 cool spotlight */
-      radial-gradient(ellipse 60% 50% at 90% 100%, rgba(235, 69, 61, 0.10), transparent 60%),  /* 우하 warm spotlight (더 약하게) */
+      radial-gradient(ellipse 70% 55% at 25% 0%, rgba(15, 128, 246, 0.18), transparent 65%),   /* top-left cool spotlight */
+      radial-gradient(ellipse 60% 50% at 90% 100%, rgba(235, 69, 61, 0.10), transparent 60%),  /* bottom-right warm spotlight (weaker) */
       var(--ink);
     overflow: hidden;
   }
   ```
-  - 미세한 깊이감 + 모던한 톤. 일반 시야에서는 거의 단색 검정으로 보이고, 가까이서 보면 좌상 brand-blue 18% / 우하 brand-red 10% 글로우.
-  - 컨텐츠 가독성에는 영향 없음 (글자 위 배경 톤은 거의 검정 유지).
+  - Subtle depth + a modern tone. At normal viewing it looks almost solid black; up close there's a top-left brand-blue 18% / bottom-right brand-red 10% glow.
+  - No impact on content readability (the background tone over the text stays near black).
 - `padding: 96px var(--pad-x)`, `min-height: 60vh`.
-- 위·아래 영역(`cover-head` ↔ `cover-meta`) 사이에 `flex justify-content: space-between`로 균등 여백.
-- **eyebrow**: 영문, 모노, micro size, `letter-spacing: 0.16em`, uppercase.
-- **title**: `--fs-display-1` (56px), **line-height 1.25** (두 줄 한글 제목이 붙지 않도록 — `--lh-tight` 1.15보다 넉넉히), weight 700. 한국어 제목.
-- **summary**: `--fs-lede` (17px), 흰색 72% alpha, 2~3줄로 간략히 (`<br>` 1~2회). **이것은 표지 전용 부제로, 섹션 lede(1~2문단)와는 다르다** — 표지에서는 길게 쓰지 않는다.
-- **대외비**: 우상단 outline chip — 빨간 닷 + uppercase 모노. 본문 푸터의 chip과 시각적으로 동일.
-- **meta**: **3컬럼 그리드** — `Date / Team / Author`. 라벨은 영문 uppercase 모노, 값은 한글/숫자.
-- 그리드 CSS: `grid-template-columns: repeat(3, auto)`.
+- Even spacing between the top and bottom areas (`cover-head` ↔ `cover-meta`) via `flex justify-content: space-between`.
+- **eyebrow**: English, mono, micro size, `letter-spacing: 0.16em`, uppercase.
+- **title**: `--fs-display-1` (56px), **line-height 1.25** (more generous than `--lh-tight` 1.15 so a two-line Korean title doesn't stick together), weight 700. Korean title.
+- **summary**: `--fs-lede` (17px), white 72% alpha, concise 2–3 lines (`<br>` once or twice). **This is a cover-only subtitle, distinct from a section lede (1–2 paragraphs)** — do not write it long on the cover.
+- **confidential**: top-right outline chip — red dot + uppercase mono. Visually identical to the body footer chip.
+- **meta**: **3-column grid** — `Date / Team / Author`. Labels are English uppercase mono; values are Korean/numbers.
+- Grid CSS: `grid-template-columns: repeat(3, auto)`.
 
-### 5.2 메타값 입력 규칙
+### 5.2 Meta value input rules
 
-> **메타 3종(Date · Team · Author)은 사용자(작성자)가 매 보고서마다 입력하는 값**이다. 시스템에 하드코딩된 디폴트가 없으며, 비어 있을 때는 **`-`** (en-dash 또는 hyphen)로 표기한다.
+> **The three meta values (Date · Team · Author) are entered by the user (author) for each report.** There is no default hardcoded in the system; when empty, display **`-`** (en-dash or hyphen).
 
-| 필드 | 형식 | 예시 | 미입력 시 |
+| Field | Format | Example | If empty |
 |---|---|---|---|
 | `Date`   | **`YYYY.MM.DD`** (mono) | `2025.05.04` | `-` |
-| `Team`   | 한글 부서·파트명         | `UX 파트` | `-` |
-| `Author` | 한글 이름               | `홍길동` | `-` |
+| `Team`   | Korean department/part name | `UX Part` | `-` |
+| `Author` | Korean name               | `Hong Gil-dong` | `-` |
 
-#### Date 포맷 룰 — `YYYY.MM.DD` 통일
-> **커버·푸터의 모든 날짜 표기는 `YYYY.MM.DD`(점 구분, 4자리 연도)로 통일.** 다른 포맷(`YY/MM/DD`, `YYYY-MM-DD`, `YYYY년 M월 D일` 등) 사용 금지.
+#### Date format rule — unify to `YYYY.MM.DD`
+> **All date notation on the cover/footer is unified to `YYYY.MM.DD` (dot separators, 4-digit year).** Do not use other formats (`YY/MM/DD`, `YYYY-MM-DD`, `YYYY년 M월 D일`, etc.).
 
-| 항목 | 옳음 | 틀림 |
+| Item | Correct | Wrong |
 |---|---|---|
-| 4자리 연도 | `2025.05.04` | `25.05.04` (세기 모호) |
-| 구분자 | 점(`.`) | `-`, `/`, `년 월 일` |
-| 0 패딩 | `2025.05.04` | `2025.5.4` |
-| 폰트 | mono(`tnum`) — `class="mono"` 적용 | regular 본문 |
+| 4-digit year | `2025.05.04` | `25.05.04` (century ambiguous) |
+| Separator | dot (`.`) | `-`, `/`, `year month day` |
+| Zero padding | `2025.05.04` | `2025.5.4` |
+| Font | mono (`tnum`) — apply `class="mono"` | regular body |
 
-이유:
-- 4자리 연도로 세기 모호 없음.
-- 점 구분자는 한국 출판/공문서 관례. mono 폰트와 시각적으로 깔끔.
-- 0 패딩으로 등폭 정렬 유지(여러 보고서·파일명에서 일관).
-- 푸터의 짧은 한 줄 메타에서도 짧고 식별성 높음.
+Reasons:
+- 4-digit year removes century ambiguity.
+- The dot separator is the Korean publishing/official-document convention. Clean with a mono font.
+- Zero padding maintains monospaced alignment (consistent across reports and filenames).
+- Short and identifiable even in the footer's short single-line meta.
 
-#### 그 외 규칙
-- **Version 필드는 사용하지 않는다.** 버전 관리는 git/파일명에서 다루고, 커버 메타에는 표기하지 않음.
-- "Department" 라벨도 사용하지 않음 (Team으로 통일).
+#### Other rules
+- **Do not use a Version field.** Version control is handled by git/filename; it is not shown in the cover meta.
+- Do not use a "Department" label either (unify to Team).
 
 ---
 
-## 6. 사이드 네비게이션 (Side Nav / TOC)
+## 6. Side Navigation (Side Nav / TOC)
 
-> **상단 고정 바(Top Nav)는 사용하지 않는다.** 보고서는 단일 문서이며, 페이지 상단을 항상 잡아먹는 sticky bar는 콘텐츠를 가리고 인쇄 시에도 방해가 된다. 문서 내 이동은 **사이드 네비**가 전담한다.
+> **Do not use a fixed top bar (top nav).** A report is a single document, and a sticky bar that permanently occupies the top of the page obscures content and gets in the way when printing. In-document movement is handled solely by the **side nav**.
 
-Claude Support 레일 패턴을 차용. 본문 **좌측**에 항상 떠 있고, 활성 섹션을 강조.
+Borrows the Claude Support rail pattern. Always floating on the **left** of the body, highlighting the active section.
 
-### 6.1 마크업 — H1(PART) + H2(섹션) 위계
+### 6.1 Markup — H1 (PART) + H2 (section) hierarchy
 
-> **사이드 네비는 H1(PART 그룹)과 H2(섹션) 두 위계만 노출한다.** H3 이하는 노출하지 않는다 (depth 1로 평탄화하면 길이가 폭발). PART가 없는 보고서는 H2만 나열.
+> **The side nav exposes only two hierarchies: H1 (PART group) and H2 (section).** It does not expose H3 or below (flattening to depth 1 explodes the length). Reports without PARTs list only H2.
 
 ```html
 <aside class="side-nav" aria-label="Section navigation">
   <ul class="side-nav-list">
-    <!-- H1: PART 그룹 헤더 — 더 강한 시각적 위계 -->
+    <!-- H1: PART group header — stronger visual hierarchy -->
     <li><a href="#part-1" data-target="part-1" class="sn-h1">
-      <span class="sn-num">PART I</span><span class="sn-title">글로벌 시장</span>
+      <span class="sn-num">PART I</span><span class="sn-title">Global Market</span>
     </a></li>
 
-    <!-- H2: 그 PART 안의 섹션들 (들여쓰기 + 작은 글자) -->
-    <li><a href="#exec"     data-target="exec"><span class="sn-num">01</span><span class="sn-title">핵심 지표</span></a></li>
-    <li><a href="#overview" data-target="overview"><span class="sn-num">02</span><span class="sn-title">시장 개관</span></a></li>
+    <!-- H2: sections within that PART (indented + smaller text) -->
+    <li><a href="#exec"     data-target="exec"><span class="sn-num">01</span><span class="sn-title">Key Metrics</span></a></li>
+    <li><a href="#overview" data-target="overview"><span class="sn-num">02</span><span class="sn-title">Market Overview</span></a></li>
     <!-- ... -->
 
     <li><a href="#part-2" data-target="part-2" class="sn-h1">
-      <span class="sn-num">PART II</span><span class="sn-title">국내 시장</span>
+      <span class="sn-num">PART II</span><span class="sn-title">Domestic Market</span>
     </a></li>
-    <!-- 다음 PART의 섹션들 ... -->
+    <!-- sections of the next PART ... -->
   </ul>
 </aside>
 ```
 
-### 6.2 스타일 핵심
+### 6.2 Style essentials
 ```css
 .side-nav {
   position: fixed;
   top: 96px;
-  /* 본문 좌측 끝 − 40px − nav 폭(200px). 단 화면이 좁으면 뷰포트 좌측 24px 확보 */
+  /* body left edge − 40px − nav width (200px). But if the screen is narrow, keep 24px from the viewport left */
   left: max(
     24px,
     calc(50% - (var(--max) / 2) - 40px - 200px)
@@ -386,46 +386,46 @@ Claude Support 레일 패턴을 차용. 본문 **좌측**에 항상 떠 있고, 
   color: var(--ink-4);
 }
 .side-nav-list a:hover { color: var(--ink); }
-/* Active = brand blue (좌측 바·title·num 모두 한 컬러로 통일된 강조) */
+/* Active = brand blue (left bar, title, and num all unified to one emphasis color) */
 .side-nav-list a.active { color: var(--brand-blue); border-left-color: var(--brand-blue); }
 .side-nav-list a.active .sn-num { color: var(--brand-blue); }
 .side-nav-list a.active .sn-title { color: var(--brand-blue); }
 
-/* H1·H2 공통 — 같은 vertical rail에 stacked. 둘 다 동일 padding/rhythm, 동일 active 좌측 바, 동일 left edge.
-   indent 없음 — 차이는 typography만 (H1: weight 700·uppercase eyebrow, H2: weight 500·body-sm). */
+/* H1 & H2 shared — stacked on the same vertical rail. Both use the same padding/rhythm, same active left bar, same left edge.
+   No indent — the only difference is typography (H1: weight 700 · uppercase eyebrow, H2: weight 500 · body-sm). */
 .side-nav-list .sn-num   { font-family: var(--font-mono); font-size: var(--fs-micro); font-weight: 600; color: var(--ink-5); letter-spacing: 0; }
 .side-nav-list .sn-title { font-size: var(--fs-body-sm); font-weight: 500; line-height: var(--lh-snug); letter-spacing: -0.005em; color: var(--ink-4); }
 
-/* H1 entries (PART 그룹 헤더) — H2와 같은 회색 톤. typography만 prominent (weight 700·uppercase eyebrow). */
+/* H1 entries (PART group header) — same gray tone as H2. Only the typography is prominent (weight 700 · uppercase eyebrow). */
 .side-nav-list a.sn-h1 { color: var(--ink-4); }
 .side-nav-list a.sn-h1 .sn-num   { font-size: 11px; letter-spacing: 0; font-weight: 700; color: var(--ink-4); text-transform: uppercase; }
 .side-nav-list a.sn-h1 .sn-title { font-size: 13px; font-weight: 700; color: var(--ink-4); }
 
-/* ⚠ Specificity 함정 — H1 active 별도 룰 필수.
-   `.side-nav-list a.active .sn-num`(0,3,1)와 `.side-nav-list a.sn-h1 .sn-num`(0,3,1)이 같은 specificity이고
-   H1 default가 source 뒤에 있어 active 룰을 무력화. → `.sn-h1.active`로 specificity (0,4,1) 확보. */
+/* ⚠ Specificity pitfall — a separate H1 active rule is required.
+   `.side-nav-list a.active .sn-num` (0,3,1) and `.side-nav-list a.sn-h1 .sn-num` (0,3,1) have the same specificity, and
+   since the H1 default comes later in source it overrides the active rule. → Use `.sn-h1.active` to gain specificity (0,4,1). */
 .side-nav-list a.sn-h1.active,
 .side-nav-list a.sn-h1.active .sn-num,
 .side-nav-list a.sn-h1.active .sn-title { color: var(--brand-blue); }
 
-/* H2 indent — PART(.sn-h1)가 존재하는 네비에서만 적용. H2가 H1 아래에 종속됨을 indent로 표현.
-   PART 없는 보고서(평면 H2 나열)에는 적용되지 않음 — :has()로 스코프. */
+/* H2 indent — applied only in a nav that has PARTs (.sn-h1). Expresses that H2 is subordinate under H1 via indent.
+   Not applied to reports without PARTs (flat H2 list) — scoped with :has(). */
 .side-nav-list:has(a.sn-h1) a:not(.sn-h1) { padding-left: 20px; }
 
 @media (max-width: 1499px) { .side-nav { display: none; } }
 ```
 
-### 6.3 반응형 동작 규칙
+### 6.3 Responsive behavior rules
 
-| 뷰포트 | 본문 좌측 ↔ TOC 우측 간격 |
+| Viewport | Body left ↔ TOC right gap |
 |---|---|
-| ≤ 1499px | TOC 숨김 |
-| ≥ 1500px | **40px 고정** (본문 기준 정렬) |
+| ≤ 1499px | Hide TOC |
+| ≥ 1500px | **Fixed 40px** (aligned to the body) |
 
-> 핵심 원리: TOC를 뷰포트 왼쪽이 아니라 **본문 왼쪽 끝 − 40px** 위치에 고정. `max(24px, …)`로 작은 화면에서 left가 음수가 되어 뷰포트 밖으로 나가지 않게 하한을 둔다.
-> 800px 본문에서는 표시 시작 지점(1500px)에서 이미 `50% − 400 − 40 − 200 = 110px`로 여유가 있어, 하한(24px)이 표시 구간에서 트리거되지 않는다 — 하한은 안전장치로만 작동하고 별도 전환 구간이 없다.
+> Core principle: pin the TOC not at the viewport's left but at **body left edge − 40px**. With `max(24px, …)`, put a lower bound so the left doesn't go negative and off-viewport on small screens.
+> With an 800px body, at the display start point (1500px) there is already `50% − 400 − 40 − 200 = 110px` of room, so the lower bound (24px) is never triggered in the visible range — the lower bound acts only as a safety net with no separate transition range.
 
-### 6.4 첫 진입 위치 + 활성 추적 (JS)
+### 6.4 Initial position + active tracking (JS)
 ```javascript
 document.addEventListener('DOMContentLoaded', function() {
   const nav     = document.querySelector('.side-nav');
@@ -433,11 +433,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const map     = {};
   links.forEach(a => { map[a.dataset.target] = a; });
   const sections = Object.keys(map).map(id => document.getElementById(id)).filter(Boolean);
-  /* Anchor 결정:
-     - 첫 navigated 섹션이 PART(.part-divider)이면 .part-divider 카드 fill 상단을 anchor로 사용.
-     - 일반 섹션이면 안쪽 h2(또는 h1)을 anchor로 사용.
-     PART는 카드 fill이 있어 카드 상단(=section box top)과 정렬해야 시각적으로 자연스럽고,
-     일반 섹션은 padding 위 콘텐츠 시작점(h2)과 맞춰야 자연스러움. */
+  /* Anchor decision:
+     - If the first navigated section is a PART (.part-divider), use the top of the .part-divider card fill as the anchor.
+     - For a normal section, use its inner h2 (or h1) as the anchor.
+     A PART has a card fill, so aligning to the card top (= section box top) looks natural,
+     while a normal section is more natural aligned to its content start (h2) above the padding. */
   const firstSection = sections[0];
   const isPartFirst  = firstSection && firstSection.classList.contains('part-divider');
   const anchorEl     = isPartFirst ? firstSection : (firstSection?.querySelector('h1, h2') || firstSection);
@@ -458,36 +458,36 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
   update();
-  /* 폰트·이미지 로딩 후 재계산 — 초기 anchorY가 layout 변화로 어긋나는 것 방지 (필수) */
+  /* Recompute after fonts/images load — prevents the initial anchorY from being off due to layout changes (required) */
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
   window.addEventListener('load', update);
 });
 ```
-- TOC는 첫 섹션의 box top(PART의 경우) 또는 첫 H2의 top(일반 섹션)에서 시작 → 스크롤하면 상단 32px에 핀.
-- **`document.fonts.ready` + `window.load` 재계산 필수** — Pretendard 폰트 로드 전에는 헤딩의 height·position이 fallback 폰트 기준으로 계산되어 anchor가 어긋남. 폰트 로드 후 한 번 더 update 해야 정확한 위치에 정렬.
-- `.active` 클래스 = 본문 30% 라인을 마지막으로 통과한 섹션 (PART도 포함).
+- The TOC starts at the first section's box top (for a PART) or the first H2's top (for a normal section) → once you scroll, it pins 32px from the top.
+- **`document.fonts.ready` + `window.load` recompute is required** — before Pretendard loads, heading height/position are computed against the fallback font, throwing off the anchor. After the font loads you must run update once more to align at the exact position.
+- The `.active` class = the section that most recently passed the 30% body line (PARTs included).
 
-### 6.5 항목 표기 규칙
-- **숫자(`sn-num`) + 한글 제목(`sn-title`)**, gap 8px (붙어 보일 정도로 좁게).
-- 제목은 정적 명사형 (`수익 구조`, `시장 기회`). 의문형 금지.
-- **H2 섹션 번호**는 항상 두 자리 (`01`, `02`, …). 별첨은 `APX`.
-- **H1 PART 번호**는 로마자 (`PART I`, `PART II`, …).
-- H1 항목은 `class="sn-h1"`을 추가하고, H2와 같은 마크업 구조 유지 (`.sn-num` + `.sn-title`).
+### 6.5 Item notation rules
+- **Number (`sn-num`) + Korean title (`sn-title`)**, gap 8px (narrow enough to read as attached).
+- Titles are static noun form (`Revenue Structure`, `Market Opportunity`). No interrogatives.
+- **H2 section numbers** are always two digits (`01`, `02`, …). Appendix is `APX`.
+- **H1 PART numbers** are Roman numerals (`PART I`, `PART II`, …).
+- Add `class="sn-h1"` to H1 items and keep the same markup structure as H2 (`.sn-num` + `.sn-title`).
 
-### 6.6 Scroll-to-Top 플로팅 버튼 (`.scroll-top`)
+### 6.6 Scroll-to-Top floating button (`.scroll-top`)
 
-> **모든 보고서는 우하단 floating "맨 위로" 버튼을 가진다.** 보고서가 길어 사이드 네비를 클릭하기 위해 한참 위로 스크롤해야 하는 부담을 줄이기 위함. 사이드 네비가 숨겨지는 좁은 화면(<1500px)에서도 작동해야 한다.
+> **Every report has a bottom-right floating "back to top" button.** This reduces the burden of scrolling far up to click the side nav in a long report. It must also work on narrow screens (<1500px) where the side nav is hidden.
 
-#### 마크업
+#### Markup
 ```html
-<button class="scroll-top" type="button" aria-label="맨 위로">
+<button class="scroll-top" type="button" aria-label="Back to top">
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
     <path d="M7 11V3M7 3L3 7M7 3L11 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </button>
 ```
 
-#### 스타일
+#### Style
 ```css
 .scroll-top {
   position: fixed;
@@ -529,12 +529,12 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 ```
 
-#### JS — 표시·동작
+#### JS — visibility & behavior
 ```javascript
 document.addEventListener('DOMContentLoaded', function() {
   const btn = document.querySelector('.scroll-top');
   if (!btn) return;
-  /* 첫 화면(viewport 1개) 이상 스크롤 시 노출. 너무 빨리 뜨면 시각 노이즈 */
+  /* Show after scrolling one viewport or more. Appearing too soon is visual noise */
   const SHOW_AFTER = Math.max(600, window.innerHeight * 0.6);
   function toggle() {
     btn.classList.toggle('visible', window.scrollY > SHOW_AFTER);
@@ -548,49 +548,49 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 ```
 
-#### 규칙
-- **위치**: 뷰포트 우하단 고정. `right: 32px; bottom: 32px` (모바일 20px).
-- **크기**: 44×44px (터치 타겟 최소). `border-radius: 8px` (라운드 사각).
-- **컬러**: 배경 `var(--ink)`, 아이콘 흰색. 사이드 네비 active 컬러(brand-blue)와 다른 검정으로 분리해 시각 위계 구분.
-- **아이콘**: 위 화살표 SVG(`↑`). 크기 14×14px, 1.5px stroke. 이모지·유니코드 화살표 사용 금지(렌더링 일관성).
-- **노출 조건**: `scrollY > 600px` 또는 `0.6 × innerHeight` (둘 중 큰 값). 첫 화면에서는 숨김.
-- **사라짐**: 맨 위 도달 시 자동 숨김. transition으로 부드럽게.
-- **shadow**: `0 6px 20px rgba(25,25,25,0.18)` — 본문 위로 떠 있는 인상. NDS의 일반적인 그림자 절제 원칙의 **예외** (floating UI는 그림자가 필수).
-- **사이드 네비와 z-index 분리**: side-nav `z-index: 90`, scroll-top `z-index: 100` — 두 요소가 겹쳐도 항상 버튼이 위.
-- **a11y**: `aria-label="맨 위로"` 필수, 키보드 포커스 시 `outline` 표시(focus-visible).
-- **클릭 동작**: `window.scrollTo({ top: 0, behavior: 'smooth' })`로 부드러운 스크롤. `html { scroll-behavior: smooth }`도 함께 활성화 권장(11. 모션 참고).
+#### Rules
+- **Position**: fixed bottom-right of the viewport. `right: 32px; bottom: 32px` (mobile 20px).
+- **Size**: 44×44px (minimum touch target). `border-radius: 8px` (rounded square).
+- **Color**: background `var(--ink)`, white icon. Set apart from the side nav active color (brand-blue) as black, distinguishing the visual hierarchy.
+- **Icon**: up-arrow SVG (`↑`). Size 14×14px, 1.5px stroke. Do not use emoji/unicode arrows (rendering consistency).
+- **Show condition**: `scrollY > 600px` or `0.6 × innerHeight` (whichever is larger). Hidden on the first screen.
+- **Disappear**: auto-hide when reaching the top. Smooth via transition.
+- **shadow**: `0 6px 20px rgba(25,25,25,0.18)` — an impression of floating above the body. An **exception** to NDS's general shadow-restraint principle (floating UI requires shadow).
+- **z-index separated from the side nav**: side-nav `z-index: 90`, scroll-top `z-index: 100` — the button is always on top even if the two overlap.
+- **a11y**: `aria-label="Back to top"` required; show an `outline` on keyboard focus (focus-visible).
+- **Click behavior**: smooth scroll via `window.scrollTo({ top: 0, behavior: 'smooth' })`. Also recommend enabling `html { scroll-behavior: smooth }` (see 11. Motion).
 
 ---
 
-## 7. 섹션 (Section)
+## 7. Section
 
 ```html
 <section class="section [muted]" id="...">
   <div class="section-inner">
 
-    <!-- 7.1 섹션 라인 — 라인만, 텍스트 없음 -->
+    <!-- 7.1 section line — line only, no text -->
     <div class="section-tag"></div>
 
-    <!-- 7.2 섹션 헤드 — H2 + lede 단순 구조 -->
+    <!-- 7.2 section head — simple H2 + lede structure -->
     <div class="section-head">
-      <h2><span class="num-prefix">01</span>수익 구조</h2>
-      <p class="lede">…(섹션 인트로, 1~2문단)…</p>
+      <h2><span class="num-prefix">01</span>Revenue Structure</h2>
+      <p class="lede">…(section intro, 1–2 paragraphs)…</p>
     </div>
 
-    <!-- 7.3 본문 소제목 + 컴포넌트 — 제목과 표는 .block으로 함께 감싼다 -->
+    <!-- 7.3 body subheading + component — wrap the title and table together with .block -->
     <div class="block">
-      <div class="block-head"><h3>소제목</h3></div>
+      <div class="block-head"><h3>Subheading</h3></div>
       <div class="table-wrap">…</div>
     </div>
 
-    <!-- 7.4 섹션 마무리 콜아웃 -->
+    <!-- 7.4 section closing callout -->
     <div class="callout">…</div>
 
   </div>
 </section>
 ```
 
-> **레이아웃 구조: `--max` 정렬은 `.section-inner`가 담당.** `main`(또는 `.section`)이 좌우 `--pad-x` 패딩을 갖고, 안쪽 `.section-inner`가 `max-width: var(--max); margin: 0 auto`로 본문 폭을 잡는다. 커버(`.cover-inner`)·푸터(`.footer-inner`)와 동일한 구조라 네 영역의 좌우 모서리가 한 수직선에 정렬된다. `max-width`를 `main`에 직접 걸고 그 위에 패딩을 또 주면 본문이 `--max − 2×pad-x`로 좁아져 커버·푸터와 어긋나므로 금지.
+> **Layout structure: `--max` alignment is handled by `.section-inner`.** `main` (or `.section`) holds the left/right `--pad-x` padding, and the inner `.section-inner` sets the body width with `max-width: var(--max); margin: 0 auto`. This is the same structure as the cover (`.cover-inner`) and footer (`.footer-inner`), so all four areas' left/right edges align on one vertical line. Do not put `max-width` directly on `main` and add padding on top of it — that narrows the body to `--max − 2×pad-x` and misaligns it from the cover/footer, so it's forbidden.
 
 ```css
 main { padding: 0 var(--pad-x); }
@@ -598,23 +598,23 @@ main { padding: 0 var(--pad-x); }
 .section-inner { max-width: var(--max); margin: 0 auto; }
 ```
 
-### 7.1 섹션 라인 (`section-tag`)
+### 7.1 Section line (`section-tag`)
 
-> **`section-tag`는 라인 1개**만을 그린다. 안의 어떤 요소도 표시하지 않는다(레거시 마크업 호환을 위해 자식 hide). 영문 메타는 두지 않는다.
+> **`section-tag` draws exactly one line.** It shows none of its inner elements (children hidden for legacy markup compatibility). No English meta.
 
 ```css
 .section-tag { border-top: 3px solid var(--line); margin-bottom: 28px; min-height: 0; }
 .section-tag > * { display: none !important; }
 ```
 
-### 7.2 섹션 헤드 — H2 + lede 단순 구조
+### 7.2 Section head — simple H2 + lede structure
 
-> **섹션 헤드는 H2(번호 + 한글 타이틀) + lede(도입 문장) 만으로 구성한다.** 제목 우측에 영문 메타 라벨을 두지 않는다 — 시선이 분산되고, 한국어 본문의 톤을 약화시킨다.
+> **The section head consists only of H2 (number + Korean title) + lede (intro sentence).** Do not put an English meta label to the right of the title — it splits attention and weakens the tone of the Korean body.
 
 ```html
 <div class="section-head">
-  <h2><span class="num-prefix">01</span>수익 구조</h2>
-  <p class="lede">…(섹션 인트로, 1~2문단)…</p>
+  <h2><span class="num-prefix">01</span>Revenue Structure</h2>
+  <p class="lede">…(section intro, 1–2 paragraphs)…</p>
 </div>
 ```
 
@@ -622,7 +622,7 @@ main { padding: 0 var(--pad-x); }
 .section-head { display: block; margin-bottom: 56px; }
 .section-head > h1, .section-head > h2 { margin-bottom: 24px; }
 
-/* H2는 항상 토큰 사이즈(40px)로 강제 — display-xl 등 다른 클래스 무력화 (!important) */
+/* Force H2 to always be the token size (40px) — override other classes like display-xl (!important) */
 .section-head h2,
 .section-head h2.display-xl,
 .section-head h2.display-xxl {
@@ -634,7 +634,7 @@ main { padding: 0 var(--pad-x); }
   color: var(--ink) !important;
 }
 
-/* 번호 prefix — H2와 동일하게 weight 700 */
+/* Number prefix — same weight 700 as H2 */
 .section-head h2 .num-prefix {
   display: inline-block;
   margin-right: 16px;
@@ -643,68 +643,68 @@ main { padding: 0 var(--pad-x); }
 }
 ```
 
-#### 헤드 작성 규칙
-- `<h2>`에 `.num-prefix`(섹션 번호) + 한글 타이틀. 번호는 두 자리(`01`, `02`, …), 별첨은 `APX`.
-- **모든 섹션 H2는 동일한 40px / weight 700**로 강제한다. 다른 디스플레이 클래스(`display-xl` 등)와 함께 붙여도 자동으로 40px이 적용되도록 CSS에서 `!important`로 명시한다.
-- **`.num-prefix`도 weight 700** — 번호와 타이틀이 같은 굵기로 한 단위처럼 읽히게 한다.
-- 제목은 **정적 명사형**. 의문형(`~인가`) 금지.
-- `<p class="lede">` 도입 문장은 **1~2문단** (3.3 참고). 짧은 한 줄로 자르지 않으며, 별도 본문 단락을 또 두어 중복시키지 않는다.
-- ❌ **제목 우측 영문 메타 라벨 사용 금지.**
+#### Head authoring rules
+- In `<h2>`, place `.num-prefix` (section number) + Korean title. Numbers are two digits (`01`, `02`, …); appendix is `APX`.
+- **Every section H2 is forced to the same 40px / weight 700.** Even combined with another display class (`display-xl`, etc.), specify `!important` in CSS so 40px is automatically applied.
+- **`.num-prefix` is also weight 700** — so the number and title read as one unit with the same weight.
+- Titles are **static noun form**. No interrogatives ("...?").
+- The `<p class="lede">` intro is **1–2 paragraphs** (see 3.3). Don't cut it to a short single line, and don't duplicate it with a separate body paragraph.
+- ❌ **Do not use an English meta label to the right of the title.**
 
-### 7.3 본문 소제목 — 2가지 패턴 중 선택
+### 7.3 Body subheading — choose one of 2 patterns
 
-본문 소제목은 **상황에 맞는 2가지 패턴 중 하나**를 쓴다. 결정 기준은 H3 단독으로 둘지, H3 + 우측 메타를 한 줄에 묶을지이다.
+Body subheadings use **one of two patterns to fit the situation**. The deciding factor is whether to place H3 alone or tie H3 + right-side meta on one line.
 
-> **표 위 제목은 항상 H3(패턴 A).** 크기와 무관하게 표·차트·KPI 등 데이터 컴포넌트 위 제목은 H4로 격하하지 않는다. 표가 여러 개 연속으로 나와도 모두 H3로 통일한다 — 위계 일관성이 가독성보다 우선한다.
+> **A title above a table is always H3 (Pattern A).** Regardless of size, a title above a data component (table/chart/KPI, etc.) is not demoted to H4. Even with several tables in a row, unify them all as H3 — hierarchy consistency takes priority over readability.
 
-#### A. **섹션 직속 H3 (20px, 라인 없음)** — 컴포넌트가 자체 상단 라인을 가질 때 (디폴트)
-표(`.table-wrap`), KPI 행(`.kpi-row`), 분배 리스트 등 대부분의 NDS 컴포넌트는 자체 `border-top`을 가진다. 이때 H3에 underline을 주면 **이중 라인 문제**가 발생한다. → H3는 **마진만으로 분리**.
+#### A. **Section-direct H3 (20px, no line)** — when the component has its own top line (default)
+Most NDS components — tables (`.table-wrap`), KPI rows (`.kpi-row`), distribution lists, etc. — have their own `border-top`. Giving H3 an underline here causes a **double-line problem**. → Separate H3 **with margin only**.
 
-> **❗ 제목과 컴포넌트는 `.block`으로 함께 감싼다.** H3와 표를 `.section-inner` 직속에 나란히 두면 표가 섹션 리듬(`.section-inner > * { margin-top: 56px }`)을 그대로 받아 **제목과 표 사이가 56px**로 벌어진다 — 무관한 두 블록 사이 간격과 같아져, 제목이 자기 표에서 분리돼 보인다. 제목+컴포넌트를 한 `.block` 안에 넣으면 둘 다 블록 리듬(`.block > * + * { margin-top: 24px }`)을 받아 **표가 제목에 24px로 붙고**, 56px는 `.block`의 바깥 가장자리에서만 적용된다. 즉 56px(블록 사이)·24px(블록 안)이 각자 제 위치에서 작동.
+> **❗ Wrap the title and component together with `.block`.** Placing H3 and the table as direct siblings of `.section-inner` makes the table inherit the section rhythm (`.section-inner > * { margin-top: 56px }`), so the **gap between the title and table becomes 56px** — the same as the gap between unrelated blocks, making the title look separated from its own table. Putting the title+component inside one `.block` makes both take the block rhythm (`.block > * + * { margin-top: 24px }`), so the **table attaches to the title at 24px**, and 56px applies only at the outer edges of `.block`. That is, 56px (between blocks) and 24px (within a block) each operate in their proper place.
 
 ```html
 <div class="block">
-  <div class="block-head"><h3>분기별 거래량 (2024)</h3></div>
+  <div class="block-head"><h3>Quarterly Transaction Volume (2024)</h3></div>
   <div class="table-wrap"><table>…</table></div>
 </div>
 ```
 
 ```css
-h3, .h3 { font-size: var(--fs-h3); line-height: var(--lh-snug); letter-spacing: 0; font-weight: 700; color: var(--ink); }   /* --fs-h3 = 20px, weight 700 — 아래 .section-inner h3와 동일 값 */
+h3, .h3 { font-size: var(--fs-h3); line-height: var(--lh-snug); letter-spacing: 0; font-weight: 700; color: var(--ink); }   /* --fs-h3 = 20px, weight 700 — same value as .section-inner h3 below */
 
-/* 섹션 안 모든 h3 (descendant) — 어떤 깊이에 있어도 56px 위 마진.
-   margin-bottom은 0 — 다음 요소의 자체 마진이 갭을 결정 (이중 합산 방지). */
-/* 베이스 h3(20px/700)를 그대로 상속 — 여기서는 섹션 안 리듬(마진)만 추가 */
+/* All h3 within a section (descendant) — 56px top margin at any depth.
+   margin-bottom is 0 — the next element's own margin determines the gap (avoids double-adding). */
+/* Inherit the base h3 (20px/700) as-is — here we only add section rhythm (margin) */
 .section-inner h3 {
   margin-top: 56px;
   margin-bottom: 0;
 }
 .section-inner h3:first-child { margin-top: 0; }
 
-/* 카드 컴포넌트 내부 h3 — 카드 자체 레이아웃이 처리, 위 마진 0 */
+/* h3 inside a card component — the card's own layout handles it, top margin 0 */
 .problem-card h3, .brand-card h3, .phase h3 { margin-top: 0; }
 
-/* .block — 제목+컴포넌트 페어링. 바깥은 56px 섹션 리듬, 안은 24px 블록 리듬 */
+/* .block — title+component pairing. Outer is 56px section rhythm, inner is 24px block rhythm */
 .block > * + * { margin-top: 24px; }
 .block > .callout { margin-top: 32px; }
 ```
 
-> **margin-bottom을 0으로 두는 이유** — 헤딩에 bottom 마진을 주면 다음 요소의 top 마진과 겹쳐(또는 더해져) 시각 갭이 들쭉날쭉해진다. 헤딩은 위 갭만, 본문 요소는 자체 위 갭만 주는 단방향 룰로 가면 어떤 조합에서도 갭이 일정.
+> **Why margin-bottom is 0** — if you give a heading a bottom margin, it overlaps (or adds to) the next element's top margin, making visual gaps uneven. Use a one-directional rule where headings give only a top gap and body elements give only their own top gap — then gaps stay consistent in any combination.
 
-> **descendant selector(`.section-inner h3`)를 쓰는 이유** — h3가 `.block` 안, 또는 `.g2 > .block > .block-head` 안 등 다양한 깊이에 들어가도 일관된 56px 위 마진을 보장한다. `.section-inner > h3`(직속 자식)만 쓰면 직속 h3에만 적용돼 깊이가 다른 h3 마진이 누락된다.
+> **Why a descendant selector (`.section-inner h3`)** — this guarantees a consistent 56px top margin even when the h3 sits at various depths (inside `.block`, or inside `.g2 > .block > .block-head`, etc.). Using only `.section-inner > h3` (direct child) applies to direct h3 only, dropping margins on h3 at other depths.
 
-#### B. **`.block-head` 래퍼 (20px, 라인 없음)** — H3 + 우측 메타를 한 줄에 두고 싶을 때
-`.block-head`는 H3와 우측 메타(단위·메모 등)를 한 행으로 묶는 **레이아웃 래퍼**일 뿐이다. **자체 라인을 그리지 않는다** (헤딩 룰: H3는 선 없음).
+#### B. **`.block-head` wrapper (20px, no line)** — when you want H3 + right-side meta on one line
+`.block-head` is merely a **layout wrapper** that ties H3 and right-side meta (unit, note, etc.) onto one row. It **draws no line of its own** (heading rule: H3 has no line).
 
 ```css
 .block { margin-top: 56px; }
 .block:first-child { margin-top: 0; }
 .block-head {
   margin-bottom: 20px;
-  padding-bottom: 0;            /* 라인 없음 */
-  border-bottom: none;          /* ❗ 절대 라인 추가 금지 */
+  padding-bottom: 0;            /* no line */
+  border-bottom: none;          /* ❗ never add a line */
   display: flex;
-  justify-content: flex-start;  /* meta는 h3 바로 옆에 inline */
+  justify-content: flex-start;  /* meta sits inline right next to h3 */
   align-items: baseline;
   gap: 12px;
   flex-wrap: wrap;
@@ -725,208 +725,208 @@ h3, .h3 { font-size: var(--fs-h3); line-height: var(--lh-snug); letter-spacing: 
 }
 ```
 
-#### 패턴 선택 기준 (요약 표)
+#### Pattern selection criteria (summary table)
 
-| 상황 | 패턴 | 헤딩 위계 |
+| Situation | Pattern | Heading hierarchy |
 |---|---|---|
-| 섹션 안의 소제목 / 표·차트 위 제목 (단독 H3) | **A: `<h3>`** (20px, no line) | 강 |
-| H3 + 우측 메타(단위·기간 등)를 한 줄에 두고 싶을 때 | **B: `.block-head h3`** (20px, no line) | 강 |
+| Subheading within a section / title above a table/chart (standalone H3) | **A: `<h3>`** (20px, no line) | Strong |
+| When you want H3 + right-side meta (unit, period, etc.) on one line | **B: `.block-head h3`** (20px, no line) | Strong |
 
-#### 공통 규칙
-- **H3는 절대 라인을 가지지 않는다.** (위 토큰표의 헤딩 위계 규칙 참고)
-- **소제목은 본문 데이터 값보다 시각적으로 강해야 한다.**
-- **표·차트·KPI 등 데이터 컴포넌트 위 제목은 항상 H3.** H4로 격하하지 않는다. 한 섹션에 표가 여러 개 연속으로 나와도 모두 H3로 통일한다.
-- H4(15px)는 본문 소제목으로 사용하지 않는다 — 표/컴포넌트 제목은 H3로 통일한다.
+#### Common rules
+- **H3 never has a line.** (See the heading hierarchy rule in the token table above.)
+- **A subheading must be visually stronger than body data values.**
+- **A title above a data component (table/chart/KPI, etc.) is always H3.** Do not demote to H4. Even with several tables in a row within one section, unify them all as H3.
+- Do not use H4 (15px) as a body subheading — unify table/component titles to H3.
 
-### 7.4 섹션 vertical rhythm — `.section-inner > *` 룰
+### 7.4 Section vertical rhythm — the `.section-inner > *` rule
 
-> **섹션 안 모든 최상위 자식은 일관된 56px의 상단 마진을 가진다.** 컴포넌트 자체에 margin-top을 박지 말고, 부모 컨테이너가 일괄 관리한다 — 한 곳에서 리듬을 통제하는 것이 들쭉날쭉을 막는 핵심.
+> **Every top-level child in a section gets a consistent 56px top margin.** Don't hardcode margin-top on the components; the parent container manages it uniformly — controlling rhythm in one place is the key to preventing unevenness.
 
 ```css
-/* 1단: section 직속 자식 — 일관된 56px 간격 */
+/* Level 1: direct children of section — consistent 56px gap */
 .section-inner > * { margin-top: 56px; }
 .section-inner > *:first-child { margin-top: 0; }
 .section-inner > .section-tag,
-.section-inner > .section-head { margin-top: 0; }   /* 섹션 시작부 자체 — 추가 마진 없음 */
+.section-inner > .section-head { margin-top: 0; }   /* the section's own start — no extra margin */
 
-/* 2단: 그리드 안에서는 자식 margin이 grid gap과 중복된다. 항상 grid gap만 사용 */
+/* Level 2: inside a grid, child margins duplicate the grid gap. Always use grid gap only */
 .g2 > *, .g3 > * { margin-top: 0 !important; }
 
-/* 3단: .block 내부 — 24px 균일 리듬 (callout만 32px).
-   ❌ `.block { margin-top: 0 }` 같은 룰을 추가하지 말 것 — 1단 룰과 specificity가 같아 source 뒤로 와서 1단을 무력화함 (아래 함정 참고). */
+/* Level 3: inside .block — uniform 24px rhythm (callout only 32px).
+   ❌ Do not add a rule like `.block { margin-top: 0 }` — it has the same specificity as the Level 1 rule and, coming later in source, overrides Level 1 (see the pitfall below). */
 .block > * + * { margin-top: 24px; }
 .block > .callout { margin-top: 32px; }
 
-/* .callout: 위쪽만 호흡, 아래쪽은 다음 형제의 margin-top이 처리 (이중 카운트 방지) */
+/* .callout: breathes only on top; the bottom is handled by the next sibling's margin-top (avoids double counting) */
 .callout { margin-top: 32px; margin-bottom: 0; }
 ```
 
-#### Specificity 주의 — 컴포넌트에 마진을 박지 말 것
-`.section-inner > *`(specificity 0,1,0)는 `.block { margin:0 }`(0,1,0)과 같은 등급이라, 컴포넌트 클래스에서 `margin`을 재선언하면 source 순서로 충돌해 56px·24px 리듬이 무력화된다(헤딩이 위 콘텐츠에 붙어버림).
-- 컴포넌트 클래스에 **`margin:0`을 재선언하지 않는다.** 글로벌 `*{margin:0}` 리셋이 이미 처리하므로, 컴포넌트는 양수 마진이 필요할 때만 명시한다. (예: `.bul{list-style:none;padding:0;}` — `margin:0` 빼기)
-- 컨테이너 리듬은 `.section-inner > *`(1단)·`.g2/.g3 > *`(2단)·`.block > * + *`(3단)이 전담한다. 더 강한 우선순위가 필요하면 `.section-inner > .block`(0,2,0)처럼 클래스 둘로 명시.
-- 의도: 컴포넌트마다 자체 마진을 주면 조합에 따라 합쳐지거나 collapse돼 간격이 들쭉날쭉해진다. 리듬을 한 곳에서 통제해야 일정해진다.
+#### Specificity caution — don't hardcode margins on components
+`.section-inner > *` (specificity 0,1,0) is the same grade as `.block { margin:0 }` (0,1,0), so redeclaring `margin` on a component class conflicts by source order and nullifies the 56px/24px rhythm (headings stick to the content above).
+- **Do not redeclare `margin:0` on component classes.** The global `*{margin:0}` reset already handles it, so components specify a positive margin only when needed. (e.g., `.bul{list-style:none;padding:0;}` — omit `margin:0`)
+- Container rhythm is owned entirely by `.section-inner > *` (level 1), `.g2/.g3 > *` (level 2), and `.block > * + *` (level 3). If you need higher priority, specify with two classes like `.section-inner > .block` (0,2,0).
+- Intent: if each component gets its own margin, combinations merge or collapse and make gaps uneven. Rhythm must be controlled in one place to stay consistent.
 
-#### 마진 스케일 요약
-| 위치 | 갭 |
+#### Margin scale summary
+| Location | Gap |
 |---|---|
-| 섹션 직속 자식 사이 (`.section-inner > * + *`) | **56px** |
-| 그리드(`.g2`, `.g3`) 자식 사이 | grid `gap: 56px` |
-| 블록(`.block`) 내부 자식 사이 | **24px** |
-| 블록 안 callout 위 (`.block > .callout`) | **32px** |
-| 헤딩 위 (h1/h2/h3/h4) | 위계별 (2.2 헤딩 위계 표 참고) |
+| Between direct children of a section (`.section-inner > * + *`) | **56px** |
+| Between grid (`.g2`, `.g3`) children | grid `gap: 56px` |
+| Between children inside a block (`.block`) | **24px** |
+| Above a callout in a block (`.block > .callout`) | **32px** |
+| Above a heading (h1/h2/h3/h4) | by hierarchy (see the 2.2 heading hierarchy table) |
 
-### 7.5 섹션 내 레이아웃 — 위/아래 배치를 우선
+### 7.5 Section-internal layout — prefer top/bottom placement
 
-> **두 개의 데이터 블록(표·차트·리스트)을 좌우로 두는 것은 기본적으로 금지.** 한국어 본문 + 표가 겹치면 가로 폭이 좁아져 텍스트가 깨지고, 표가 줄바꿈되며 가독성이 무너진다. **세로(위/아래)로 쌓는 것을 디폴트**로 한다.
+> **Placing two data blocks (table/chart/list) side by side is forbidden by default.** When Korean body + a table overlap, the horizontal width narrows, text breaks, tables wrap, and readability collapses. Make **stacking vertically (top/bottom) the default.**
 
 ```css
-/* g2: 두 자식을 세로로 (NDS 디폴트) */
+/* g2: two children vertically (NDS default) */
 .g2 { display: grid; grid-template-columns: 1fr; gap: 56px; }
 
-/* g3: 짧은 stat 3개 비교용 (가로 유지 OK) */
+/* g3: for comparing 3 short stats (horizontal OK) */
 .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 ```
 
-#### 가로 배치를 사용할 때
-다음 조건을 **모두** 만족할 때만 가로 비교를 허용한다.
-- 자식 블록이 **표를 포함하지 않음**.
-- 각 블록의 본문 텍스트가 짧음(2–3줄 이내).
-- "A vs B" 처럼 **명시적인 좌우 비교**가 의미를 가질 때.
+#### When to use horizontal placement
+Allow horizontal comparison only when **all** of the following hold.
+- The child blocks **contain no tables**.
+- Each block's body text is short (within 2–3 lines).
+- An explicit **left/right comparison** like "A vs B" is meaningful.
 
-이 외에는 모두 세로(`.g2`)로 둔다.
+Otherwise, place everything vertically (`.g2`).
 
-### 7.6 표 (Table) — 헤더와 셀 정렬 일관성
+### 7.6 Table — header/cell alignment consistency
 
 ```css
 .table-wrap { border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
-/* thead 배경은 light gray (--surface-2 = #efefef) + 짙은 글자. 한 페이지에 표가 여러 개여도 본문 흐름을 끊지 않는 가벼운 톤 */
+/* thead background is light gray (--surface-2 = #efefef) + dark text. A light tone that doesn't break the body flow even with several tables on one page */
 thead th { text-align: left; padding: 12px 16px; background: var(--surface-2); color: var(--ink); font-family: var(--font-mono); font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: 0; font-weight: 600; white-space: nowrap; }
 thead th.num, td.num { text-align: right; font-feature-settings: "tnum"; }
 tbody td { padding: 14px 16px; border-bottom: 1px solid var(--line-softer); color: var(--ink-2); vertical-align: top; font-size: 13.5px; }
 tbody tr:last-child td { border-bottom: none; }
 ```
 
-#### thead 배경 색 룰
-- 배경은 **`--surface-2` (#efefef)** — pale gray. 검정(`--ink`)·짙은 회색(`--ink-3`)을 쓰지 않는다.
-- 짙은 헤더는 시각 무게가 너무 강해 한 페이지에 표가 여러 개 있으면 본문 흐름을 끊는다. 옅은 그레이가 헤더 식별성은 유지하면서 톤을 가볍게.
-- 짙은 글자(`var(--ink)`) 사용 — `--surface-2` 위 ink 대비 약 14:1 (WCAG AAA 통과).
+#### thead background color rule
+- Background is **`--surface-2` (#efefef)** — pale gray. Do not use black (`--ink`) or dark gray (`--ink-3`).
+- A dark header carries too much visual weight and breaks the body flow when there are several tables on a page. A light gray keeps header identifiability while lightening the tone.
+- Use dark text (`var(--ink)`) — ink contrast over `--surface-2` is about 14:1 (passes WCAG AAA).
 
-#### 정렬 룰
-- **모든 숫자 컬럼은 `class="num"`을 헤더(`<th>`)와 모든 셀(`<td>`)에 빠짐없이 붙인다.** 한쪽만 빠지면 헤더와 셀의 정렬이 어긋난다.
-- 숫자 셀에는 `class="num tnum"` (또는 `font-feature-settings: "tnum"`)으로 등폭 숫자 활성화.
-- 모든 `tbody td`의 `vertical-align: top` 통일. middle을 쓰지 않는다(다중 라인 셀에서 위계가 어긋남).
-- 표는 항상 `.table-wrap`으로 감싼다. 표 폭이 컨텐트 영역(`--max`)을 넘을 수 있는 경우 `overflow-x: auto`로 가로 스크롤.
-- 셀 내용을 줄바꿈으로 강제하지 않는다.
+#### Alignment rules
+- **Attach `class="num"` to every numeric column on both the header (`<th>`) and all cells (`<td>`), without omission.** If one side is missing, header and cell alignment goes out of sync.
+- On numeric cells, enable monospaced numbers with `class="num tnum"` (or `font-feature-settings: "tnum"`).
+- Unify `vertical-align: top` on all `tbody td`. Do not use middle (it throws off hierarchy in multi-line cells).
+- Always wrap tables in `.table-wrap`. If the table width can exceed the content area (`--max`), enable horizontal scroll with `overflow-x: auto`.
+- Do not force cell content to wrap.
 
-#### 라인 두께 룰 — 모든 표 라인 1px MAX
+#### Line thickness rule — all table lines 1px MAX
 
-> **표(`.table-wrap`, `.steps`, `.flow`, `.breakdown-list`, `.geo-grid` 등 표/리스트형 컴포넌트)의 모든 외곽선은 1px이 최대다.** 2px 이상의 두꺼운 선은 시각 무게가 너무 강해 본문 흐름을 깨고, 한 페이지에 표가 여러 개 등장하면 시각적 어수선함을 만든다.
+> **All outlines of tables (`.table-wrap`, `.steps`, `.flow`, `.breakdown-list`, `.geo-grid`, and other table/list-type components) are 1px maximum.** Thick lines of 2px+ carry too much visual weight, break the body flow, and create visual clutter when several tables appear on one page.
 
-| 라인 | 두께 |
+| Line | Thickness |
 |---|---|
 | `.table-wrap` border-top | **1px solid var(--ink)** (MAX) |
-| `thead th` 배경 | — (행 자체가 헤더 시각 무게 담당) |
-| `tbody td` border-bottom | **1px solid var(--line-softer)** (행 구분, 더 옅게) |
-| `.table-wrap` border-bottom | **1px solid var(--ink)** (top과 동일) |
-| 기타 list-like 컴포넌트(`.steps`, `.flow`, `.geo-grid`, `.breakdown-list`, `.fee-math`, `.insight-list`) 외곽 | **1px solid var(--ink)** (top·bottom 모두) |
+| `thead th` background | — (the row itself carries the header's visual weight) |
+| `tbody td` border-bottom | **1px solid var(--line-softer)** (row separator, lighter) |
+| `.table-wrap` border-bottom | **1px solid var(--ink)** (same as top) |
+| Other list-like components (`.steps`, `.flow`, `.geo-grid`, `.breakdown-list`, `.fee-math`, `.insight-list`) outline | **1px solid var(--ink)** (both top & bottom) |
 
-**2px 이상 절대 금지** — 디자인시스템 위반. (예외: H2 위 `.section-tag` 3px·H1 위 `.part-divider`는 헤딩 디바이더로, 표 영역과 다른 레이어이므로 별도)
+**Never 2px or more** — a design system violation. (Exception: the 3px `.section-tag` above H2 and the `.part-divider` above H1 are heading dividers, a different layer from the table area, so they are separate.)
 
-#### 컴포넌트 외곽선 패턴 — 데이터 행(A) vs 카드(B)
+#### Component outline patterns — data row (A) vs card (B)
 
-> **그리드형 컴포넌트의 외곽선은 두 패턴 중 하나. 섞어 쓰지 않는다.**
-> 가로 그리드형은 모두 Pattern B 디폴트. Pattern A는 화살표/단계로 연결된 흐름 컴포넌트(`.flow`, `.steps`)와 표(`.table-wrap`)에만 한정.
+> **A grid component's outline is one of two patterns. Do not mix them.**
+> Horizontal grid types all default to Pattern B. Pattern A is restricted to flow components connected by arrows/steps (`.flow`, `.steps`) and tables (`.table-wrap`).
 
-##### Pattern B — 자기완결 카드 (디폴트)
-각 셀이 self-contained 박스. 시각적으로 분리되어 그리드 형태로 떠 있는 인상.
+##### Pattern B — self-contained card (default)
+Each cell is a self-contained box. Visually separated, giving the impression of floating in a grid.
 
 ```css
 .problem-grid {
   display: grid;
   gap: 1px;
-  background: var(--line-soft);            /* gap이 라인으로 비침 */
-  border: 1px solid var(--line-soft);      /* 사방 외곽 박스 */
+  background: var(--line-soft);            /* the gap shows through as a line */
+  border: 1px solid var(--line-soft);      /* outer box on all sides */
 }
-.problem-card { background: var(--surface); padding: 32px; }    /* 흰 카드가 채움 */
+.problem-card { background: var(--surface); padding: 32px; }    /* white cards fill it */
 ```
 
-| 적용 컴포넌트 |
+| Applies to |
 |---|
-| `.problem-grid`, `.brand-cards` (자기완결 인사이트/프로필 카드) |
-| `.kpi-row`, `.metric-grid`, `.geo-grid` (수치 비교 그리드) |
+| `.problem-grid`, `.brand-cards` (self-contained insight/profile cards) |
+| `.kpi-row`, `.metric-grid`, `.geo-grid` (numeric comparison grids) |
 
-##### Pattern A — 데이터 행 / 흐름 (예외)
-화살표·단계로 의미가 연결되는 컴포넌트, 그리고 표(table) 본체에만 한정. 본문 흐름에 자연스럽게 녹아드는 가벼운 톤.
+##### Pattern A — data row / flow (exception)
+Restricted to components whose meaning is connected by arrows/steps, and to the table body itself. A light tone that blends naturally into the body flow.
 
 ```css
 .flow {
   display: grid;
-  border-top:    1px solid var(--ink);    /* 검정 상단 1px */
-  border-bottom: 1px solid var(--ink);    /* 검정 하단 1px */
+  border-top:    1px solid var(--ink);    /* black top 1px */
+  border-bottom: 1px solid var(--ink);    /* black bottom 1px */
 }
 .flow-step { border-left: 1px solid var(--line-soft); }
 .flow-step:first-child { border-left: none; }
-.flow-step::after { content: "→"; }                   /* 단계 사이 화살표 */
+.flow-step::after { content: "→"; }                   /* arrow between steps */
 ```
 
-| 적용 컴포넌트 |
+| Applies to |
 |---|
-| `.flow`, `.steps` (화살표/단계로 연결된 흐름) |
-| `.table-wrap` (표 본체 — thead·tbody 구조) |
+| `.flow`, `.steps` (flows connected by arrows/steps) |
+| `.table-wrap` (table body — thead·tbody structure) |
 
-##### 결정 기준
+##### Decision criteria
 
-| 콘텐츠 성격 | 패턴 |
+| Content nature | Pattern |
 |---|---|
-| 가로 비교 데이터 그리드 (수치·라벨·짧은 설명) | **B: 카드** (디폴트) |
-| 각 셀이 self-contained 콘텐츠 (헤딩+본문+stat) | **B: 카드** |
-| **화살표/단계로 연결된 흐름** (process flow, sequential steps) | **A: 데이터 행** |
-| **표 본체** (thead + tbody) | **A: 데이터 행** |
+| Horizontal comparison data grid (numbers/labels/short descriptions) | **B: card** (default) |
+| Each cell is self-contained content (heading+body+stat) | **B: card** |
+| **Flow connected by arrows/steps** (process flow, sequential steps) | **A: data row** |
+| **Table body** (thead + tbody) | **A: data row** |
 
-**판단 가이드**:
-- "이건 카드 그리드인가, 흐름인가?" — 흐름이면 A, 그 외엔 B.
-- A는 화살표·번호 단계 등 **순서/연결**의 의미가 시각에 담겨야 할 때만.
-- 단순한 4개 KPI / 4개 시장 비교는 **B**.
+**Decision guide**:
+- "Is this a card grid or a flow?" — if a flow, A; otherwise B.
+- A is only when the meaning of **order/connection** (arrows, numbered steps, etc.) must be carried visually.
+- A simple 4-KPI / 4-market comparison is **B**.
 
-### 7.7 PART 그룹 헤더 (`.part-divider` / H1)
+### 7.7 PART group header (`.part-divider` / H1)
 
-> **섹션이 약 6개를 넘으면 H1 PART 헤더로 묶는다.** 평평한 1–15 번호 나열은 시선이 길어져 흐름을 잃는다. PART 헤더는 보고서 안에 "챕터 표지" 역할을 한다.
+> **When sections exceed about 6, group them with H1 PART headers.** A flat 1–15 number list makes the eye travel far and lose the flow. PART headers serve as "chapter covers" within the report.
 
 ```html
 <section class="part-divider" id="part-2">
   <div class="section-inner">
     <div class="part-eyebrow">PART II</div>
-    <h1>국내 시장 분석</h1>
-    <span class="part-meta">Korea Market — 시장 현황부터 IP 라이선스까지</span>
+    <h1>Domestic Market Analysis</h1>
+    <span class="part-meta">Korea Market — from market status to IP licensing</span>
   </div>
 </section>
 ```
 
 ```css
-/* PART DIVIDER — solid brand-blue 배경 밴드. 색상은 .section-inner(body width = --max)에 한정해 화면 풀폭이 아닌 본문 폭에 맞춤 */
+/* PART DIVIDER — solid brand-blue background band. Color is limited to .section-inner (body width = --max), matching the body width rather than the full screen */
 .part-divider {
-  padding: 0 var(--pad-x);                           /* 외곽: 좁은 화면에서 가장자리 여백만 */
+  padding: 0 var(--pad-x);                           /* outer: only edge margins on narrow screens */
   margin-top: 120px;
 }
-.part-divider:first-of-type { margin-top: var(--section-py); }   /* 첫 요소가 PART일 때 커버와 붙지 않도록 — 일반 섹션 상단 패딩(72px)과 동일 */
+.part-divider:first-of-type { margin-top: var(--section-py); }   /* when the first element is a PART, don't stick to the cover — same as a normal section's top padding (72px) */
 .part-divider .section-inner {
-  max-width: var(--max);                              /* body width = --max 한정 */
+  max-width: var(--max);                              /* limited to body width = --max */
   margin: 0 auto;
   width: 100%;
   background:
     linear-gradient(115deg, rgba(15, 128, 246, 0.10) 0%, transparent 35%, transparent 65%, rgba(1, 160, 88, 0.06) 100%),
-    var(--ink);                                       /* 검정 베이스 + 미세한 대각 sheen — 좌상 brand-blue 10% / 우하 brand-green 6% */
-  color: var(--surface);                              /* 어두운 배경에 흰 글자 */
+    var(--ink);                                       /* black base + subtle diagonal sheen — top-left brand-blue 10% / bottom-right brand-green 6% */
+  color: var(--surface);                              /* white text on the dark background */
   padding: 40px;
-  border-radius: 16px;                                /* 모서리 라운드 — 챕터 카드처럼 분리감 부여 */
-  overflow: hidden;                                    /* gradient가 라운드 모서리 밖으로 안 나가게 */
+  border-radius: 16px;                                /* rounded corners — gives a chapter-card sense of separation */
+  overflow: hidden;                                    /* keep the gradient inside the rounded corners */
 }
-/* PART eyebrow/meta는 mono uppercase, 자간 0 */
+/* PART eyebrow/meta are mono uppercase, letter-spacing 0 */
 .part-divider .part-eyebrow {
   font-family: var(--font-mono);
-  font-size: 14px;          /* 본문 micro(12px)보다 한 단계 위, H1(48px)과 호흡 맞춤 */
+  font-size: 14px;          /* one step above body micro (12px), in tune with H1 (48px) */
   letter-spacing: 0;
   text-transform: uppercase;
   color: rgba(255,255,255,0.70);
@@ -946,67 +946,67 @@ tbody tr:last-child td { border-bottom: none; }
 }
 ```
 
-#### 작성 규칙
-- **PART 번호**는 로마자(`PART I`, `PART II`, `PART III`, …). 영문 mono uppercase.
-- **PART 타이틀**은 한글(`국내 시장 분석`, `전략 시사점` 등). H1 토큰(48px) 사용.
-- **part-meta**는 영문 부제 + 짧은 설명. mono uppercase.
-- 6개 미만 섹션이면 PART 그룹화 불필요. 6~8개라도 단일 흐름이 자연스러우면 평면 구조 유지.
-- PART 디바이더는 그 자체로 navigator의 H1 항목으로 노출된다.
+#### Authoring rules
+- **PART numbers** are Roman numerals (`PART I`, `PART II`, `PART III`, …). English mono uppercase.
+- **PART titles** are Korean (`Domestic Market Analysis`, `Strategic Implications`, etc.). Use the H1 token (48px).
+- **part-meta** is an English subtitle + short description. Mono uppercase.
+- If sections are fewer than 6, PART grouping is unnecessary. Even with 6–8, keep a flat structure if a single flow is natural.
+- A PART divider is itself exposed as an H1 item in the navigator.
 
-#### 별첨(APX) 영역의 디바이더는 사용하지 않는다
-- 별첨(`APX`) 섹션 안의 하위 블록(예: Phase 1·2·3 로드맵)은 **상단 디바이더 라인 없이** 마진만으로 분리한다.
-- 본문 섹션과 달리 별첨은 부가 자료 성격이므로 디바이더가 강하게 그어지면 본문급 무게로 잘못 읽히기 쉽다.
+#### Do not use a divider in the appendix (APX) area
+- Sub-blocks within an appendix (`APX`) section (e.g., a Phase 1·2·3 roadmap) are separated **by margin only, without a top divider line**.
+- Unlike body sections, an appendix is supplementary; a strongly drawn divider is easily misread as body-level weight.
 
 ```css
-/* APX Phase block — 디바이더 없음, 마진만으로 분리 */
+/* APX Phase block — no divider, separated by margin only */
 .phase { border-top: none; padding-top: 0; margin-top: 56px; }
 .phase:first-child { margin-top: 0; }
 ```
 
 ---
 
-## 8. 콜아웃 / 하이라이트 박스 (Callout / Highlight Box) — 섹션 요약 박스 통일
+## 8. Callout / Highlight Box — unified section summary box
 
-> **하나의 클래스 `.callout`이 모든 "강조 박스" 역할을 한다.**
-> 즉 _Highlight 박스_, _Key Takeaway 박스_, _So What 박스_, _Implication 박스_ 모두 같은 구조 `.callout`을 쓰고 **상단 라벨 텍스트만 바꿔서** 용도를 구분한다.
+> **A single class `.callout` serves all "emphasis box" roles.**
+> That is, the _Highlight box_, _Key Takeaway box_, _So What box_, and _Implication box_ all use the same structure `.callout` and distinguish their purpose **only by changing the top label text.**
 
-### 8.1 구조
+### 8.1 Structure
 
-기본 구조는 모두 동일. 라벨에 따라 modifier 클래스만 추가.
+The base structure is identical for all. Add a modifier class only according to the label.
 
 ```html
-<!-- 기본 (pale yellow): Key Takeaway / So What / Implication / Highlight -->
+<!-- default (pale yellow): Key Takeaway / So What / Implication / Highlight -->
 <div class="callout">
   <div class="lbl">Key Takeaway</div>
-  <p>…요약 문장…</p>
+  <p>…summary sentence…</p>
 </div>
 
 <!-- Note: pale blue -->
 <div class="callout callout-note">
   <div class="lbl">Note</div>
-  <p>…주의사항·전제·각주…</p>
+  <p>…caution / premise / footnote…</p>
 </div>
 
 <!-- Important: pale red -->
 <div class="callout callout-important">
   <div class="lbl">Important</div>
-  <p>…놓치면 안 되는 결정적 정보…</p>
+  <p>…decisive info you must not miss…</p>
 </div>
 ```
 
-### 8.2 스타일
+### 8.2 Style
 
 ```css
-/* Default — pale yellow. Key Takeaway / So What / Implication / Highlight 모두 사용. 좌측 강조선 없음. */
+/* Default — pale yellow. Used by Key Takeaway / So What / Implication / Highlight alike. No left emphasis bar. */
 .callout {
   margin-top: 32px;
-  margin-bottom: 0;                                       /* 다음 형제의 margin이 갭 결정 */
+  margin-bottom: 0;                                       /* the next sibling's margin determines the gap */
   padding: 24px 28px;
   background: rgba(252, 246, 131, 0.30);                  /* brand-yellow 30% */
-  border-left: none;                                       /* ❗ 좌측 강조선 사용 안 함 — 배경 색상만으로 강조 */
+  border-left: none;                                       /* ❗ no left emphasis bar — emphasis via background color only */
 }
 
-/* Tone variants — modifier 클래스로 배경 색상만 교체 (좌측선은 없음) */
+/* Tone variants — modifier classes swap only the background color (no left bar) */
 .callout.callout-note      { background: rgba(15, 128, 246, 0.08); }    /* pale blue */
 .callout.callout-important { background: rgba(235, 69, 61, 0.08); }     /* pale red */
 
@@ -1017,44 +1017,44 @@ tbody tr:last-child td { border-bottom: none; }
   color: var(--ink-4);
   margin-bottom: 10px;
   font-weight: 600;
-  letter-spacing: 0;                     /* ❗ 자간 없음 — 박스 라벨 톤이 차분해짐 */
+  letter-spacing: 0;                     /* ❗ no letter-spacing — keeps the box label tone calm */
 }
 .callout p {
   font-size: var(--fs-body);             /* 15px */
-  color: var(--ink);                     /* 본문보다 진한 검정 — 강조용 박스이므로 */
+  color: var(--ink);                     /* darker black than body — it's an emphasis box */
   line-height: var(--lh-loose);
 }
 .callout p + p { margin-top: 8px; }
 ```
 
-### 8.3 라벨 사용 가이드 (6종)
+### 8.3 Label usage guide (6 types)
 
-| 라벨 | 색상 | modifier 클래스 | 언제 쓰는가 |
+| Label | Color | Modifier class | When to use |
 |---|---|---|---|
-| `Key Takeaway`  | **pale yellow (default)** | (없음) | 섹션이 전달하는 한 줄 결론. **기본값**. |
-| `Highlight`     | **pale yellow (default)** | (없음) | 데이터 속 특이값·놀라운 사실 강조 |
-| `So What`       | **pale yellow (default)** | (없음) | "그래서 무엇을 해야 하나" — 액션·의사결정 함의 |
-| `Implication`   | **pale yellow (default)** | (없음) | 시장/조직/제품 파급 효과 |
-| `Note`          | **pale blue** | `.callout-note` | 주의사항·전제·각주 |
-| `Important`     | **pale red** | `.callout-important` | 놓치면 안 되는 결정적 정보 (자주 쓰지 않음) |
+| `Key Takeaway`  | **pale yellow (default)** | (none) | The one-line conclusion the section conveys. **Default.** |
+| `Highlight`     | **pale yellow (default)** | (none) | Emphasize outliers / surprising facts in the data |
+| `So What`       | **pale yellow (default)** | (none) | "So what should we do" — action/decision implication |
+| `Implication`   | **pale yellow (default)** | (none) | Ripple effects on market/org/product |
+| `Note`          | **pale blue** | `.callout-note` | Cautions / premises / footnotes |
+| `Important`     | **pale red** | `.callout-important` | Decisive info you must not miss (use sparingly) |
 
-> 의미적 강조(요약·하이라이트·시사점·결론)는 모두 같은 옅은 노랑 톤으로 한 묶음. **다른 톤은 의도가 분명히 다를 때만**: Note는 보조 정보(blue), Important는 위험·경고급 결정 정보(red).
-> 좌측 강조선(border-left)은 모든 변형에서 사용하지 않는다 — 배경 색상만으로 충분히 시각 식별이 됨.
+> Semantic emphasis (summary/highlight/implication/conclusion) all shares the same pale yellow tone as one group. **Use another tone only when the intent is clearly different**: Note is supplementary info (blue), Important is risk/warning-level decisive info (red).
+> The left emphasis bar (border-left) is not used in any variant — background color alone provides enough visual identification.
 
-### 8.4 작성 규칙
-- **구조는 항상 동일**: `.callout > .lbl + <p>…`. 변형 금지.
-- 색상은 modifier 클래스로만 — 인라인 style 금지.
-- **라벨은 영문 uppercase**, **본문은 한글**.
-- 본문은 1~2 단락. 3단락 이상 길어지면 본문 섹션으로 빼기.
-- 박스에 데코레이션(삼각형, 따옴표, 아이콘 등) 추가 금지.
-- 한 섹션에 `.callout`은 **1회만**. 두 개 이상 쌓지 않음 (강조의 의미가 희석됨).
-- 위치는 보통 섹션 마지막 — 데이터/본문이 다 나온 뒤 마무리 박스로 등장.
+### 8.4 Authoring rules
+- **The structure is always identical**: `.callout > .lbl + <p>…`. No variation.
+- Color via modifier class only — no inline style.
+- **Labels are English uppercase**, **body is Korean**.
+- Body is 1–2 paragraphs. If it grows to 3+ paragraphs, move it out to a body section.
+- Do not add decorations to the box (triangles, quotes, icons, etc.).
+- Use `.callout` **only once** per section. Do not stack two or more (it dilutes the meaning of emphasis).
+- Position is usually at the end of the section — appearing as a closing box after all the data/body.
 
 ---
 
-## 9. 푸터 (Footer)
+## 9. Footer
 
-밝은 톤 + 작은 글자 (헤더보다 글자 작음) + 헤더 정보의 푸터 버전.
+Light tone + small text (smaller than the header) + a footer version of the header info.
 
 ```html
 <footer class="footer" role="contentinfo">
@@ -1062,7 +1062,7 @@ tbody tr:last-child td { border-bottom: none; }
     <div class="footer-row">
       <div class="footer-left">
         <div class="footer-line">
-          <span class="footer-doc-title">결제 및 쿠폰 시장 분석</span>
+          <span class="footer-doc-title">Payment &amp; Coupon Market Analysis</span>
         </div>
         <div class="footer-line footer-line-sub">
           <span>-</span><span class="dot">·</span>
@@ -1071,31 +1071,31 @@ tbody tr:last-child td { border-bottom: none; }
         </div>
       </div>
       <div class="footer-right">
-        <span class="footer-confidential">대외비</span>
+        <span class="footer-confidential">CONFIDENTIAL</span>
       </div>
     </div>
     <p class="footer-disclaimer">
-      본 문서는 대외비 자료입니다. 허가된 사용자 이외의 접근 및 배포를 금지하며, 이를 위반하는 경우 인사 및 민형사상 책임을 질 수 있습니다.
+      This document is confidential. Access and distribution by anyone other than authorized users is prohibited; violations may result in disciplinary action and civil or criminal liability.
     </p>
     <div class="footer-copyright">© All Rights Reserved.</div>
   </div>
 </footer>
 ```
 
-### 9.1 푸터 규칙
-- 배경 `--surface` (흰색), 위쪽에 `border-top: 1px solid var(--line-soft)`.
-- `padding: 28px var(--pad-x)`. 마지막 섹션과의 간격은 `margin-top: 160px`.
-- 좌측: **제목(굵게, ink) + 한 줄 메타(작고 옅은 ink-3)**.
-  - 메타 한 줄: **`팀 · 이름 · 날짜`** (3개, 모두 한 줄에).
-  - **날짜 포맷은 `YYYY.MM.DD`** (커버와 동일, 5.2 참고). 날짜 span에 `class="mono"` 필수.
-  - **Version은 표기하지 않는다** (5.2 참고).
-  - **미입력 메타는 푸터에서 숨긴다** — 커버는 `-`로 표시하지만, 푸터는 한 줄 메타가 짧고 빈 자리가 더 어색하므로 **해당 span 자체를 제외**한다 (JS로 자동 제거 또는 마크업에서 omit). 이웃 구분점(`·`)도 함께 정리.
-  - 항목 사이 `gap: 4px` (헤더보다 좁게).
+### 9.1 Footer rules
+- Background `--surface` (white), with `border-top: 1px solid var(--line-soft)` on top.
+- `padding: 28px var(--pad-x)`. Gap from the last section is `margin-top: 160px`.
+- Left: **title (bold, ink) + a one-line meta (small, light ink-3)**.
+  - The meta line: **`Team · Name · Date`** (three items, all on one line).
+  - **Date format is `YYYY.MM.DD`** (same as the cover, see 5.2). `class="mono"` is required on the date span.
+  - **Do not show Version** (see 5.2).
+  - **Hide empty meta in the footer** — the cover shows `-`, but the footer's one-line meta is short and an empty slot is more awkward, so **exclude that span itself** (auto-remove via JS, or omit in markup). Also clean up neighboring separators (`·`).
+  - `gap: 4px` between items (narrower than the header).
 
-#### JS — 푸터 미입력 메타 자동 숨김
+#### JS — auto-hide empty footer meta
 ```javascript
-/* 푸터의 .footer-line-sub 안에서 text가 `-`인 메타 span 제거.
-   남은 dot(`·`) 중 양 끝의 것 + 연속된 것 정리. 결과: `팀 · 날짜` 처럼 깔끔. */
+/* Remove meta spans whose text is `-` inside .footer-line-sub.
+   Clean up remaining dots (`·`) at the ends + consecutive ones. Result: clean like `Team · Date`. */
 document.querySelectorAll('.footer-line-sub').forEach(line => {
   Array.from(line.children).forEach(el => {
     if (!el.classList.contains('dot') && el.textContent.trim() === '-') el.remove();
@@ -1110,102 +1110,102 @@ document.querySelectorAll('.footer-line-sub').forEach(line => {
 });
 ```
 
-> **커버는 변경 없음.** 커버 메타 3종(Date · Team · Author)은 항상 3개 라벨이 보이는 그리드 구조이므로 빈 자리에 `-`을 표시. 푸터는 자유 흐름 한 줄이라 빈 자리가 시각적으로 어색해 숨김 처리가 자연스러움.
-- 우측: **대외비 chip** — 커버의 칩과 동일한 디자인 (outline + 빨간 닷 + uppercase 모노).
-- Disclaimer는 `--fs-micro` (12px), `--ink-4`, max-width 720px.
-- Copyright는 모노, `--ink-5`, 위에 얇은 라인 1px (`var(--surface-1)`, #f7f7f7) — 거의 보이지 않는 가벼운 구분선. `var(--line-softer)`(#ededed)보다 한층 더 밝아서 푸터 마지막 줄이 시각적으로 떠 있는 느낌이 안 듦.
+> **The cover is unchanged.** The three cover meta values (Date · Team · Author) always show three labels in a grid structure, so display `-` in empty slots. The footer is a free-flowing single line where an empty slot looks visually awkward, so hiding is natural.
+- Right: **confidential chip** — same design as the cover chip (outline + red dot + uppercase mono).
+- Disclaimer is `--fs-micro` (12px), `--ink-4`, max-width 720px.
+- Copyright is mono, `--ink-5`, with a thin 1px line above (`var(--surface-1)`, #f7f7f7) — an almost invisible light separator. Even lighter than `var(--line-softer)` (#ededed), so the footer's last line doesn't feel visually floating.
 
-### 9.2 위계 규칙
-- **푸터 글자는 헤더(상단 nav)보다 작거나 같다.**
-- `.footer-doc-title`만 ink + bold + `--fs-body-sm` (13px).
-- 메타 한 줄은 `--fs-micro` (12px) + `--ink-3`. 너무 옅으면 (`--ink-5` 이하) 사용 금지.
+### 9.2 Hierarchy rules
+- **Footer text is smaller than or equal to the header (top nav).**
+- Only `.footer-doc-title` is ink + bold + `--fs-body-sm` (13px).
+- The meta line is `--fs-micro` (12px) + `--ink-3`. Do not use anything too light (below `--ink-5`).
 
 ---
 
-## 10. 컴포넌트 카탈로그 (Component Reference)
+## 10. Component Reference
 
-본 보고서에서 사용한 데이터/콘텐츠 표현 컴포넌트. 모두 흑백 + 한 가지 강조 컬러 원칙.
+The data/content components used in this report. All follow the black-and-white + one emphasis color principle.
 
-| 컴포넌트 | 클래스 | 용도 |
+| Component | Class | Use |
 |---|---|---|
-| KPI Row | `.kpi-row > .kpi` | 주요 지표 4개 가로 배치 |
-| Exec Card | `.exec-card` | 익스큐티브 서머리 컨테이너 |
-| Bar Chart | `.bar-chart > .bar-row` | 연도별/항목별 가로 막대 |
-| Stack Bar | `.stack > .stack-seg` + `.stack-legend` | 구성비 누적 막대 + 범례 |
-| Breakdown List | `.breakdown-list > .bd-row` | 행별 라벨/설명/막대/값 |
-| Problem Cards | `.problem-grid > .problem-card` | 3분할 인사이트 카드 |
-| Geo Cells | `.geo-grid > .geo-cell` | 4개국/지역 비교 |
-| Comp Table | `.comp-table` | 경쟁사 재무 비교 표 |
-| Brand Cards | `.brand-cards > .brand-card` | 국내 플레이어 카드 |
-| Flow | `.flow > .flow-step` | 5단계 흐름 (`→` 화살표 자동) |
-| Fee Math | `.fee-math > .fee-side` | 좌우 비교 수식 / 마진 계산 |
-| Insight List | `.insight-list > .insight-row` | 큰 번호 + 헤딩 + 본문 |
+| KPI Row | `.kpi-row > .kpi` | 4 key metrics laid out horizontally |
+| Exec Card | `.exec-card` | executive summary container |
+| Bar Chart | `.bar-chart > .bar-row` | horizontal bars by year/item |
+| Stack Bar | `.stack > .stack-seg` + `.stack-legend` | composition stacked bar + legend |
+| Breakdown List | `.breakdown-list > .bd-row` | label/description/bar/value per row |
+| Problem Cards | `.problem-grid > .problem-card` | 3-way insight cards |
+| Geo Cells | `.geo-grid > .geo-cell` | 4-country/region comparison |
+| Comp Table | `.comp-table` | competitor financial comparison table |
+| Brand Cards | `.brand-cards > .brand-card` | domestic player cards |
+| Flow | `.flow > .flow-step` | 5-step flow (`→` arrow automatic) |
+| Fee Math | `.fee-math > .fee-side` | left/right comparison formula / margin calc |
+| Insight List | `.insight-list > .insight-row` | large number + heading + body |
 
-각 컴포넌트는 모두 **상하단 1px 검정 라인**으로 시작/종료. 셀 사이는 `--line-soft`.
+Each component starts/ends with a **1px black line on top and bottom**. Between cells is `--line-soft`.
 
 ---
 
-## 11. 모션 (Motion)
+## 11. Motion
 
 ```css
 --ease: cubic-bezier(0.32, 0.72, 0, 1);   /* iOS-like */
 --dur:  240ms;
 ```
 
-- 색·border·transform만 트랜지션. opacity 페이드인 등 무거운 모션은 사용하지 않음.
-- `html { scroll-behavior: smooth; }` 활성화.
+- Transition only color, border, and transform. Do not use heavy motion like opacity fade-ins.
+- Enable `html { scroll-behavior: smooth; }`.
 
 ---
 
-## 12. 접근성 / 마크업 위생
+## 12. Accessibility / Markup Hygiene
 
-- 본문 언어: `<html lang="ko">`.
-- 사이드 네비게이션은 `<aside aria-label="Section navigation">`.
-- 푸터는 `<footer role="contentinfo">`.
-- 시멘틱 헤딩(h1 → h2 → h3) 위계 유지. 헤딩 점프 금지.
-- 색만으로 의미 전달 금지 — 차감/위험/긍정은 항상 라벨이나 부호와 함께.
+- Document language: `<html lang="ko">`.
+- Side navigation is `<aside aria-label="Section navigation">`.
+- Footer is `<footer role="contentinfo">`.
+- Maintain semantic heading hierarchy (h1 → h2 → h3). No heading jumps.
+- Do not convey meaning by color alone — deduction/danger/positive always come with a label or sign.
 
 ---
 
-## 13. 작성·운영 체크리스트
+## 13. Authoring & Operations Checklist
 
-새 보고서를 만들 때 확인:
+Check when creating a new report:
 
-- [ ] `<html lang="ko">` 설정
-- [ ] Pretendard CDN 로드
-- [ ] 본문에 `word-break: keep-all; overflow-wrap: break-word;`
-- [ ] 모든 폰트 사이즈가 `--fs-*` 토큰 사용 (12px 미만 금지)
-- [ ] **본문 기본 폭 `--max: 800px`** — 커버·섹션·푸터 공통, 한 토큰으로 일괄 정렬
-- [ ] **`--max` 정렬은 `.section-inner`/`.cover-inner`/`.footer-inner`가 담당** — `main`에 `max-width`와 패딩을 함께 걸지 않는다 (본문이 좁아져 커버·푸터와 어긋남)
-- [ ] **상단 고정 바(top nav) 사용 안 함** — 네비게이션은 사이드 네비만
-- [ ] **사이드 네비는 본문 좌측에 고정** — `left: max(24px, calc(50% - (--max/2) - 40px - 200px))`
-- [ ] **TOC 표시 구간 ≥1500px**, 그 미만은 숨김 (800px 본문에서는 전환 구간 없이 항상 40px gap)
-- [ ] **Scroll-to-Top 플로팅 버튼(`.scroll-top`) 포함** — 우하단 고정, 600px 스크롤 후 노출
-- [ ] 커버: eyebrow(영문) + title(한글) + summary(2~3줄, 표지 전용) + 대외비 chip + meta **3종**(Date / Team / Author)
-- [ ] **메타값 미입력 시 `-` 로 표기**, Version 사용 안 함
-- [ ] **날짜는 `YYYY.MM.DD` 포맷** (예: `2025.05.04`) — 커버·푸터 모두. mono 적용 (`class="mono"`)
-- [ ] 사이드 네비 항목: 정적 명사형 제목 + 두 자리 번호
-- [ ] 섹션 lede는 **1~2문단**(본문 폭 따름) · 한 줄 요약+본문+콜아웃 3중 중복 금지
-- [ ] **`section-tag`는 라인 1개만** (안에 텍스트 두지 않음)
-- [ ] **섹션 헤드는 H2 + lede만** — 제목 우측 영문 메타 라벨 사용 금지
-- [ ] **헤딩 라인 규칙: H1·H2만 라인을 가진다.** H3·H4는 라인 없음 (`.block-head` border 포함 절대 X)
-- [ ] **헤딩 마진 스케일: H1(120) > H2(72) > H3(56) > H4(36)** — 위계 따라 줄어듦. H4도 본문과 충분히 분리
-- [ ] **모든 H2는 40px / weight 700로 통일** (`--fs-h2` 토큰), H1은 48px — `display-xl` 등 다른 클래스 무시 (CSS `!important`로 강제)
-- [ ] **`.num-prefix`도 weight 700** — H2 본문과 동일한 굵기
-- [ ] **섹션 vertical rhythm 단일 룰**: `.section-inner > * { margin-top: 56px }`, 그리드 안에서는 `.g2 > *, .g3 > * { margin-top: 0 }` — 컴포넌트 자체 margin 금지
-- [ ] **`.callout` margin-bottom: 0** — 다음 형제의 margin-top이 갭 결정 (이중 합산 방지)
-- [ ] **섹션 6개 이상이면 H1 PART 헤더로 그룹화** (`.part-divider`)
-- [ ] **사이드 네비는 H1·H2 두 위계만 표기** — H1은 `.sn-h1` 클래스로 prominent 처리, H2는 들여쓰기
-- [ ] **제목+컴포넌트(표·차트·KPI)는 `.block`으로 함께 감싼다** — 제목이 표에 24px로 붙음. 바깥 56px 섹션 리듬과 분리. 직속에 나란히 두면 56px로 벌어짐
-- [ ] **소제목 패턴 2가지** 중 선택: A) `<h3>` 20px no-line (기본) / B) `.block-head h3` 20px no-line (H3+우측 메타 래퍼). **표·차트·KPI 등 데이터 컴포넌트 위 제목은 항상 H3** (H4로 격하 금지)
-- [ ] **표 포함 두 블록은 가로(g2) 금지**, 세로로 쌓기
-- [ ] **표의 모든 숫자 컬럼은 헤더·셀 양쪽에 `class="num"`** 일관 적용
-- [ ] **모든 표·리스트형 컴포넌트 외곽선은 1px MAX** (`.table-wrap`·`.steps`·`.flow`·`.geo-grid` 등 모두) — 2px 이상 금지
-- [ ] **별첨(APX) 영역은 디바이더 없이 마진만으로 분리** (`.phase` border-top 제거)
-- [ ] **본문 영역의 모든 헤딩(H2~H4)·번호 prefix·작은 라벨류는 letter-spacing 0** — 양수 자간은 커버/푸터 영문 chip에만 한정
-- [ ] **PART 디바이더(`.part-divider`)는 brand-blue 10% 배경 + 40px 패딩 밴드** — 굵은 라인 fill 대신 색상 fill로 챕터 표지 효과
-- [ ] **H3 마진 룰은 descendant selector(`.section-inner h3`)** — 모든 깊이의 h3에 일관 적용, `:first-child`는 0
-- [ ] 모든 섹션 하단 요약은 `.callout` 단일 패턴
-- [ ] 푸터: 제목(굵게) + 한 줄 메타(팀·이름·날짜) + 대외비 chip + disclaimer + copyright
-- [ ] 마지막 섹션 ↔ 푸터 `margin-top: 160px`
-- [ ] 의문형 헤딩(`~인가?`) 사용 안 함
+- [ ] `<html lang="ko">` set
+- [ ] Pretendard CDN loaded
+- [ ] `word-break: keep-all; overflow-wrap: break-word;` on the body
+- [ ] All font sizes use `--fs-*` tokens (nothing under 12px)
+- [ ] **Body default width `--max: 800px`** — shared by cover/section/footer, aligned uniformly by one token
+- [ ] **`--max` alignment handled by `.section-inner`/`.cover-inner`/`.footer-inner`** — don't put `max-width` and padding together on `main` (it narrows the body and misaligns from cover/footer)
+- [ ] **No fixed top bar (top nav)** — navigation is the side nav only
+- [ ] **Side nav fixed on the body's left** — `left: max(24px, calc(50% - (--max/2) - 40px - 200px))`
+- [ ] **TOC display range ≥1500px**, hidden below (with an 800px body, always a 40px gap with no transition range)
+- [ ] **Include the Scroll-to-Top floating button (`.scroll-top`)** — fixed bottom-right, shown after 600px scroll
+- [ ] Cover: eyebrow (English) + title (Korean) + summary (2–3 lines, cover-only) + confidential chip + **3 meta** (Date / Team / Author)
+- [ ] **Display `-` for empty meta values**, no Version
+- [ ] **Dates in `YYYY.MM.DD` format** (e.g., `2025.05.04`) — both cover and footer. Apply mono (`class="mono"`)
+- [ ] Side nav items: static noun-form titles + two-digit numbers
+- [ ] Section lede is **1–2 paragraphs** (follows body width) · no triple duplication of one-line summary + body + callout
+- [ ] **`section-tag` is exactly one line** (no text inside)
+- [ ] **Section head is H2 + lede only** — no English meta label to the right of the title
+- [ ] **Heading line rule: only H1 & H2 have a line.** H3 & H4 have no line (never add a `.block-head` border)
+- [ ] **Heading margin scale: H1(120) > H2(72) > H3(56) > H4(36)** — shrinking by hierarchy. Even H4 is well separated from body
+- [ ] **All H2 unified to 40px / weight 700** (`--fs-h2` token), H1 is 48px — ignore other classes like `display-xl` (force via CSS `!important`)
+- [ ] **`.num-prefix` is also weight 700** — same weight as the H2 body
+- [ ] **Single rule for section vertical rhythm**: `.section-inner > * { margin-top: 56px }`, inside grids `.g2 > *, .g3 > * { margin-top: 0 }` — no component's own margin
+- [ ] **`.callout` margin-bottom: 0** — the next sibling's margin-top determines the gap (avoids double-adding)
+- [ ] **Group with H1 PART headers if there are 6+ sections** (`.part-divider`)
+- [ ] **Side nav shows only two hierarchies, H1 & H2** — H1 is prominent via the `.sn-h1` class, H2 is indented
+- [ ] **Wrap title+component (table/chart/KPI) together with `.block`** — the title attaches to the table at 24px, separated from the outer 56px section rhythm. Placing them as direct siblings opens a 56px gap
+- [ ] **Choose one of 2 subheading patterns**: A) `<h3>` 20px no-line (default) / B) `.block-head h3` 20px no-line (H3 + right-side meta wrapper). **A title above a data component like table/chart/KPI is always H3** (no demotion to H4)
+- [ ] **No horizontal (g2) for two blocks that include a table** — stack vertically
+- [ ] **Attach `class="num"` to both header and cells of every numeric column** consistently
+- [ ] **All table/list-type component outlines are 1px MAX** (`.table-wrap` · `.steps` · `.flow` · `.geo-grid`, etc.) — no 2px+
+- [ ] **Separate the appendix (APX) area by margin only, without a divider** (remove `.phase` border-top)
+- [ ] **All body-area headings (H2–H4) · number prefixes · small labels are letter-spacing 0** — positive letter-spacing only on cover/footer English chips
+- [ ] **PART divider (`.part-divider`) is a brand-blue 10% background + 40px padding band** — a chapter-cover effect via color fill instead of a thick line fill
+- [ ] **H3 margin rule uses a descendant selector (`.section-inner h3`)** — applied consistently to h3 at any depth, `:first-child` is 0
+- [ ] Every section's closing summary uses the single `.callout` pattern
+- [ ] Footer: title (bold) + one-line meta (team · name · date) + confidential chip + disclaimer + copyright
+- [ ] Last section ↔ footer `margin-top: 160px`
+- [ ] No interrogative headings ("...?")
