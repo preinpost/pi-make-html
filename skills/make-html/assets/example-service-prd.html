@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신규 서비스 A — PRD (TEST)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+:root{
+  --brand-black:#191919; --brand-white:#ffffff;
+  --brand-blue:#0F80F6; --brand-red:#EB453D; --brand-green:#01A058;
+  --brand-orange:#FF9000; --brand-yellow:#FCF683; --brand-brown:#DAC0A9; --brand-gray:#DCDCDC;
+  --ink:#191919; --ink-2:#2e2e2e; --ink-3:#545454; --ink-4:#767676; --ink-5:#a1a1a1; --ink-6:#c8c8c8;
+  --surface:#ffffff; --surface-1:#f7f7f7; --surface-2:#efefef;
+  --line:#191919; --line-soft:#e3e3e3; --line-softer:#ededed;
+  --accent:#0F80F6; --danger:#EB453D; --success:#01A058;
+  --font-sans:"Pretendard",sans-serif; --font-mono:"Pretendard",sans-serif;
+  --fs-display-1:56px; --fs-display-2:40px;
+  --fs-h1:48px; --fs-h2:40px; --fs-h3:20px; --fs-h4:15px;
+  --fs-lede:17px; --fs-body:15px; --fs-body-sm:13px; --fs-caption:12px; --fs-micro:12px;
+  --lh-tight:1.15; --lh-snug:1.25; --lh-normal:1.4; --lh-loose:1.7;
+  --max:800px; --narrow:760px; --pad-x:56px; --section-py:72px;
+  --ease:cubic-bezier(0.32,0.72,0,1); --dur:240ms;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-sans);font-size:var(--fs-body);line-height:var(--lh-loose);font-weight:500;color:var(--ink-2);background:var(--surface);font-feature-settings:"ss01","cv11","tnum";word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased;}
+.mono{font-family:var(--font-mono);font-feature-settings:"tnum";}
+
+/* COVER */
+.cover{background:radial-gradient(ellipse 70% 55% at 25% 0%, rgba(15,128,246,0.18), transparent 65%),radial-gradient(ellipse 60% 50% at 90% 100%, rgba(235,69,61,0.10), transparent 60%),var(--ink);color:var(--surface);overflow:hidden;padding:96px var(--pad-x);min-height:60vh;display:flex;}
+.cover-inner{max-width:var(--max);margin:0 auto;width:100%;display:flex;flex-direction:column;justify-content:space-between;gap:64px;}
+.cover-head{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;}
+.cover-eyebrow{font-family:var(--font-mono);font-size:var(--fs-micro);letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:24px;}
+.cover-title{font-size:var(--fs-display-1);line-height:1.25;letter-spacing:-0.04em;font-weight:700;color:var(--surface);}
+.cover-summary{margin-top:24px;font-size:var(--fs-lede);line-height:var(--lh-loose);letter-spacing:-0.005em;color:rgba(255,255,255,0.72);font-weight:500;max-width:640px;}
+.cover-confidential{flex-shrink:0;display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:var(--fs-micro);letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.35);border-radius:4px;padding:7px 12px;}
+.cover-confidential::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand-red);}
+.cover-meta{display:grid;grid-template-columns:repeat(3,auto);gap:48px;justify-content:start;}
+.cover-meta-item{display:flex;flex-direction:column;gap:6px;}
+.cover-meta-label{font-family:var(--font-mono);font-size:var(--fs-micro);letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5);}
+.cover-meta-value{font-size:var(--fs-body-sm);color:rgba(255,255,255,0.92);font-weight:500;}
+
+/* SIDE NAV (left) */
+.side-nav{position:fixed;top:96px;left:max(24px, calc(50% - (var(--max)/2) - 40px - 200px));z-index:90;width:200px;max-height:calc(100vh - 128px);overflow-y:auto;}
+.side-nav-list{list-style:none;border-left:2px solid var(--line-soft);}
+.side-nav-list a{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:baseline;padding:7px 0 7px 12px;margin-left:-2px;border-left:2px solid transparent;color:var(--ink-4);text-decoration:none;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease);}
+.side-nav-list a:hover{color:var(--ink);}
+.side-nav-list a.active{color:var(--brand-blue);border-left-color:var(--brand-blue);}
+.side-nav-list a.active .sn-num,.side-nav-list a.active .sn-title{color:var(--brand-blue);}
+.side-nav-list .sn-num{font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:600;color:var(--ink-5);letter-spacing:0;}
+.side-nav-list .sn-title{font-size:var(--fs-body-sm);font-weight:500;line-height:var(--lh-snug);letter-spacing:-0.005em;color:var(--ink-4);}
+.side-nav-list a.sn-h1{color:var(--ink-4);}
+.side-nav-list a.sn-h1 .sn-num{font-size:11px;letter-spacing:0;font-weight:700;color:var(--ink-4);text-transform:uppercase;}
+.side-nav-list a.sn-h1 .sn-title{font-size:13px;font-weight:700;color:var(--ink-4);}
+.side-nav-list a.sn-h1.active,.side-nav-list a.sn-h1.active .sn-num,.side-nav-list a.sn-h1.active .sn-title{color:var(--brand-blue);}
+.side-nav-list:has(a.sn-h1) a:not(.sn-h1){padding-left:20px;}
+@media(max-width:1499px){.side-nav{display:none;}}
+
+/* SECTION */
+main{padding:0 var(--pad-x);}
+.section{padding:var(--section-py) 0;}
+.section-inner{max-width:var(--max);margin:0 auto;}
+.section-inner>*{margin-top:56px;}
+.section-inner>*:first-child{margin-top:0;}
+.section-inner>.section-tag,.section-inner>.section-head{margin-top:0;}
+.section-tag{border-top:3px solid var(--line);margin-bottom:28px;}
+.section-head{display:block;margin-bottom:56px;}
+.section-head>h2{margin-bottom:24px;}
+.section-head h2{font-size:var(--fs-h2);line-height:var(--lh-snug);letter-spacing:0;font-weight:700;color:var(--ink);}
+.section-head h2 .num-prefix{display:inline-block;margin-right:16px;color:var(--ink-4);font-weight:700;}
+.lede{font-size:var(--fs-lede);line-height:var(--lh-loose);letter-spacing:-0.005em;color:var(--ink-3);font-weight:500;}
+.lede+.lede{margin-top:16px;}
+.lede b{color:var(--ink);font-weight:700;}
+h3,.h3{font-size:var(--fs-h3);line-height:var(--lh-snug);letter-spacing:0;font-weight:700;color:var(--ink);}
+.section-inner h3{margin-top:56px;margin-bottom:0;}
+.section-inner h3:first-child{margin-top:0;}
+.bul{list-style:none;padding:0;}
+.bul li{position:relative;padding-left:18px;margin-top:10px;color:var(--ink-2);font-size:var(--fs-body);line-height:var(--lh-loose);}
+.bul li:first-child{margin-top:0;}
+.bul li::before{content:"";position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--ink-5);}
+.bul li b{font-weight:700;color:var(--ink);}
+
+/* BLOCK */
+.block>*+*{margin-top:24px;}
+.block>.callout{margin-top:32px;}
+.block-head{margin-bottom:0;padding-bottom:0;border-bottom:none;display:flex;justify-content:flex-start;align-items:baseline;gap:12px;flex-wrap:wrap;}
+.block-head h3{margin-top:0;}
+.block-head .meta{font-family:var(--font-mono);font-size:var(--fs-micro);color:var(--ink-4);letter-spacing:0;text-transform:uppercase;}
+
+/* KPI ROW */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);}
+.kpi{background:var(--surface);padding:24px 22px;}
+.kpi-value{font-size:30px;font-weight:700;color:var(--ink);line-height:1.1;letter-spacing:-0.02em;font-feature-settings:"tnum";}
+.kpi-value .unit{font-size:16px;font-weight:600;color:var(--ink-3);margin-left:2px;}
+.kpi-label{font-size:var(--fs-body-sm);color:var(--ink-4);line-height:var(--lh-snug);margin-top:10px;letter-spacing:0;}
+@media(max-width:760px){.kpi-row{grid-template-columns:repeat(2,1fr);}}
+
+/* TABLE */
+.table-wrap{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead th{text-align:left;padding:12px 16px;background:var(--surface-2);color:var(--ink);font-family:var(--font-mono);font-size:var(--fs-micro);text-transform:uppercase;letter-spacing:0;font-weight:600;white-space:nowrap;}
+thead th.num{text-align:right;}
+tbody td{padding:14px 16px;border-bottom:1px solid var(--line-softer);color:var(--ink-2);vertical-align:top;font-size:13.5px;line-height:1.55;}
+tbody td.num{text-align:right;font-feature-settings:"tnum";}
+tbody td.lbl-cell{font-weight:700;color:var(--ink);white-space:nowrap;}
+tbody tr:last-child td{border-bottom:none;}
+.badge{display:inline-block;font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:600;padding:3px 9px;border-radius:4px;letter-spacing:0;white-space:nowrap;background:var(--surface-2);color:var(--ink-3);}
+.badge.p0{background:rgba(235,69,61,0.10);color:var(--danger);}
+.badge.p1{background:rgba(15,128,246,0.10);color:var(--accent);}
+
+/* INSIGHT LIST */
+.insight-list{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);}
+.insight-row{display:grid;grid-template-columns:auto 1fr;gap:24px;padding:22px 0;border-top:1px solid var(--line-soft);align-items:baseline;}
+.insight-row:first-child{border-top:none;}
+.insight-num{font-family:var(--font-mono);font-size:24px;font-weight:700;color:var(--ink-5);line-height:1;font-feature-settings:"tnum";min-width:28px;}
+.insight-title{font-size:16px;font-weight:700;color:var(--ink);line-height:var(--lh-snug);margin-bottom:6px;}
+.insight-body p{font-size:var(--fs-body);color:var(--ink-3);line-height:var(--lh-loose);}
+
+/* PROBLEM CARDS */
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);}
+.problem-card{background:var(--surface);padding:26px 24px;}
+.problem-card .pc-num{font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:700;color:var(--brand-blue);letter-spacing:0;}
+.problem-card h3{font-size:16px;font-weight:700;color:var(--ink);line-height:var(--lh-snug);margin-top:8px;}
+.problem-card p{font-size:var(--fs-body-sm);color:var(--ink-3);line-height:var(--lh-loose);margin-top:10px;}
+@media(max-width:760px){.problem-grid{grid-template-columns:1fr;}}
+
+/* FLOW */
+.flow{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);}
+.flow-step{display:grid;grid-template-columns:auto 1fr;gap:20px;padding:20px 0;border-top:1px solid var(--line-soft);align-items:baseline;}
+.flow-step:first-child{border-top:none;}
+.flow-num{font-family:var(--font-mono);font-size:var(--fs-micro);font-weight:700;color:var(--ink-5);letter-spacing:0;min-width:24px;}
+.flow-name{font-size:var(--fs-body);font-weight:700;color:var(--ink);}
+.flow-desc{font-size:var(--fs-body-sm);color:var(--ink-4);margin-top:4px;line-height:var(--lh-normal);}
+
+/* CALLOUT */
+.callout{margin-top:32px;margin-bottom:0;padding:24px 28px;background:rgba(252,246,131,0.30);}
+.callout.callout-note{background:rgba(15,128,246,0.08);}
+.callout.callout-important{background:rgba(235,69,61,0.08);}
+.callout .lbl{font-family:var(--font-mono);font-size:var(--fs-micro);text-transform:uppercase;color:var(--ink-4);margin-bottom:10px;font-weight:600;letter-spacing:0;}
+.callout p{font-size:var(--fs-body);color:var(--ink);line-height:var(--lh-loose);}
+
+/* PART DIVIDER */
+.part-divider{padding:0 var(--pad-x);margin-top:120px;}
+.part-divider:first-of-type{margin-top:var(--section-py);}
+.part-divider .section-inner{max-width:var(--max);margin:0 auto;width:100%;background:linear-gradient(115deg, rgba(15,128,246,0.10) 0%, transparent 35%, transparent 65%, rgba(1,160,88,0.06) 100%),var(--ink);color:var(--surface);padding:40px;border-radius:16px;overflow:hidden;}
+.part-divider .part-eyebrow{font-family:var(--font-mono);font-size:14px;letter-spacing:0;text-transform:uppercase;color:rgba(255,255,255,0.70);font-weight:700;margin-bottom:12px;}
+.part-divider h1{color:var(--surface);letter-spacing:0;font-size:var(--fs-h1);line-height:var(--lh-tight);font-weight:700;}
+.part-divider .part-meta{display:block;margin-top:12px;font-family:var(--font-mono);font-size:14px;letter-spacing:0;text-transform:uppercase;color:rgba(255,255,255,0.70);font-weight:600;}
+
+/* FOOTER */
+.footer{background:var(--surface);border-top:1px solid var(--line-soft);padding:28px var(--pad-x);margin-top:160px;}
+.footer-inner{max-width:var(--max);margin:0 auto;}
+.footer-row{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;}
+.footer-left{display:flex;flex-direction:column;gap:6px;}
+.footer-doc-title{font-size:var(--fs-body-sm);font-weight:700;color:var(--ink);}
+.footer-line-sub{font-size:var(--fs-micro);color:var(--ink-3);}
+.footer-line-sub .dot{color:var(--ink-5);margin:0 4px;}
+.footer-confidential{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:var(--fs-micro);letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:var(--ink-3);border:1px solid var(--line-soft);border-radius:4px;padding:6px 11px;}
+.footer-confidential::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand-red);}
+.footer-disclaimer{font-size:var(--fs-micro);color:var(--ink-4);max-width:720px;margin-top:20px;line-height:var(--lh-normal);}
+.footer-copyright{font-family:var(--font-mono);font-size:var(--fs-micro);color:var(--ink-5);margin-top:18px;padding-top:14px;border-top:1px solid var(--surface-1);letter-spacing:0;}
+
+/* SCROLL TOP */
+.scroll-top{position:fixed;right:32px;bottom:32px;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:var(--surface);border:none;border-radius:8px;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity var(--dur) var(--ease),transform var(--dur) var(--ease),background var(--dur) var(--ease);box-shadow:0 6px 20px rgba(25,25,25,0.18);z-index:100;}
+.scroll-top.visible{opacity:1;pointer-events:auto;transform:translateY(0);}
+.scroll-top:hover{background:var(--ink-2);}
+
+@media(max-width:680px){:root{--pad-x:24px;--section-py:64px;--fs-display-1:40px;--fs-h2:30px;--fs-h1:36px;}.cover-head{flex-direction:column;}.cover-meta{grid-template-columns:1fr;gap:24px;}.footer{margin-top:96px;}.part-divider{margin-top:80px;}}
+</style>
+</head>
+<body>
+
+<section class="cover" id="cover">
+  <div class="cover-inner">
+    <div class="cover-head">
+      <div>
+        <div class="cover-eyebrow">Product Requirements · Draft</div>
+        <h1 class="cover-title">신규 서비스 A<br>제품 요구사항 정의서</h1>
+        <p class="cover-summary">신규 서비스 A의 배경·목표·요구사항·실행 계획을 정리한 PRD입니다. 스펙 검증용 더미 데이터 기반 문서로, 실제 수치가 아닙니다.</p>
+      </div>
+      <span class="cover-confidential">대외비</span>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><span class="cover-meta-label">Date</span><span class="cover-meta-value mono">2026.05.27</span></div>
+      <div class="cover-meta-item"><span class="cover-meta-label">Team</span><span class="cover-meta-value">디자인실</span></div>
+      <div class="cover-meta-item"><span class="cover-meta-label">Author</span><span class="cover-meta-value">UX</span></div>
+    </div>
+  </div>
+</section>
+
+<aside class="side-nav" aria-label="Section navigation">
+  <ul class="side-nav-list">
+    <li><a href="#part-1" data-target="part-1" class="sn-h1"><span class="sn-num">PART I</span><span class="sn-title">배경과 목표</span></a></li>
+    <li><a href="#overview" data-target="overview"><span class="sn-num">00</span><span class="sn-title">개요</span></a></li>
+    <li><a href="#problem" data-target="problem"><span class="sn-num">01</span><span class="sn-title">문제 정의</span></a></li>
+    <li><a href="#goals" data-target="goals"><span class="sn-num">02</span><span class="sn-title">목표와 성공 지표</span></a></li>
+    <li><a href="#part-2" data-target="part-2" class="sn-h1"><span class="sn-num">PART II</span><span class="sn-title">요구사항과 실행</span></a></li>
+    <li><a href="#requirements" data-target="requirements"><span class="sn-num">03</span><span class="sn-title">기능 요구사항</span></a></li>
+    <li><a href="#userflow" data-target="userflow"><span class="sn-num">04</span><span class="sn-title">핵심 사용자 흐름</span></a></li>
+    <li><a href="#plan" data-target="plan"><span class="sn-num">05</span><span class="sn-title">실행 계획</span></a></li>
+  </ul>
+</aside>
+
+<main>
+
+  <!-- PART I -->
+  <section class="part-divider" id="part-1">
+    <div class="section-inner">
+      <div class="part-eyebrow">PART I</div>
+      <h1>배경과 목표</h1>
+      <span class="part-meta">Why &amp; What — 왜 만들고, 무엇을 이루려 하는가</span>
+    </div>
+  </section>
+
+  <!-- 00 개요 -->
+  <section class="section" id="overview">
+    <div class="section-inner">
+      <div class="section-tag"></div>
+      <div class="section-head">
+        <h2><span class="num-prefix">00</span>개요</h2>
+        <p class="lede">이 문서는 신규 서비스 A의 제품 요구사항을 정의합니다. 빠르게 훑어 전체 방향을 잡고, 필요한 섹션을 깊게 파고들 수 있도록 구성했습니다.</p>
+        <p class="lede">핵심은 <b>현재 사용자 경험의 단절을 하나의 흐름으로 잇는 것</b>입니다. 흩어진 기능을 한곳에 모아 사용자가 목표를 더 적은 단계로 달성하게 하고, 이를 통해 핵심 지표를 끌어올리는 것이 이 서비스의 존재 이유입니다.</p>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-value">3<span class="unit">개</span></div><div class="kpi-label">통합 대상 기존 기능 (더미)</div></div>
+        <div class="kpi"><div class="kpi-value">-40<span class="unit">%</span></div><div class="kpi-label">목표 단계 축소율 (더미)</div></div>
+        <div class="kpi"><div class="kpi-value">2<span class="unit">개 분기</span></div><div class="kpi-label">목표 출시 기간 (더미)</div></div>
+        <div class="kpi"><div class="kpi-value">5<span class="unit">개</span></div><div class="kpi-label">핵심 요구사항 수 (더미)</div></div>
+      </div>
+      <div class="callout">
+        <div class="lbl">Key Takeaway</div>
+        <p>신규 서비스 A는 새 기능을 더하는 프로젝트가 아니라, 흩어진 경험을 잇는 통합 프로젝트입니다. 성공의 기준은 "기능이 많아졌는가"가 아니라 "사용자가 더 적은 단계로 목표에 도달하는가"입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 문제 정의 -->
+  <section class="section" id="problem">
+    <div class="section-inner">
+      <div class="section-tag"></div>
+      <div class="section-head">
+        <h2><span class="num-prefix">01</span>문제 정의</h2>
+        <p class="lede">현재 사용자는 하나의 목표를 이루기 위해 서로 분리된 여러 화면을 오가야 합니다. 이 단절이 이탈과 불만의 핵심 원인이며, 아래 세 가지 문제로 요약됩니다.</p>
+      </div>
+      <div class="block">
+        <div class="block-head"><h3>핵심 문제 3</h3></div>
+        <div class="problem-grid">
+          <div class="problem-card"><div class="pc-num">P1</div><h3>흩어진 진입점</h3><p>같은 목표를 위한 기능이 여러 곳에 분산돼 있어, 사용자가 어디서 시작할지 매번 헤맵니다.</p></div>
+          <div class="problem-card"><div class="pc-num">P2</div><h3>단계 과다</h3><p>완료까지 거치는 화면이 많아, 중간 이탈이 단계마다 누적됩니다.</p></div>
+          <div class="problem-card"><div class="pc-num">P3</div><h3>맥락 손실</h3><p>화면을 옮길 때 이전 입력이 이어지지 않아 같은 정보를 반복 입력합니다.</p></div>
+        </div>
+      </div>
+      <div class="callout callout-important">
+        <div class="lbl">Important</div>
+        <p>세 문제는 따로가 아니라 하나의 사슬입니다. 진입점이 흩어져 있어 단계가 늘고, 단계가 늘어 맥락이 끊깁니다. 따라서 기능을 하나씩 고치는 접근으로는 풀리지 않고, 흐름 전체를 다시 설계해야 합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 목표와 성공 지표 -->
+  <section class="section" id="goals">
+    <div class="section-inner">
+      <div class="section-tag"></div>
+      <div class="section-head">
+        <h2><span class="num-prefix">02</span>목표와 성공 지표</h2>
+        <p class="lede">목표는 정성적 방향과 정량적 기준을 함께 둡니다. 방향만 있으면 측정이 안 되고, 숫자만 있으면 이유를 잃기 때문입니다. 아래 지표로 출시 후 성공 여부를 판단합니다.</p>
+      </div>
+      <div class="block">
+        <div class="block-head"><h3>성공 지표</h3><span class="meta">더미 기준값</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>지표</th><th>현재</th><th class="num">목표</th><th>측정 방법</th></tr></thead>
+            <tbody>
+              <tr><td class="lbl-cell">완료율</td><td>기준선</td><td class="num">+15%p</td><td>전환 퍼널 분석</td></tr>
+              <tr><td class="lbl-cell">평균 단계 수</td><td>기준선</td><td class="num">-40%</td><td>이벤트 로그</td></tr>
+              <tr><td class="lbl-cell">재방문율</td><td>기준선</td><td class="num">+10%p</td><td>코호트 리텐션</td></tr>
+              <tr><td class="lbl-cell">오류 발생률</td><td>기준선</td><td class="num">-50%</td><td>오류 트래킹</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="lbl">So What</div>
+        <p>네 지표 중 가장 중요한 건 평균 단계 수입니다. 나머지(완료율·재방문·오류)는 단계가 줄면 자연히 따라오는 결과 지표이고, 단계 수가 우리가 직접 움직일 수 있는 원인 지표이기 때문입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART II -->
+  <section class="part-divider" id="part-2">
+    <div class="section-inner">
+      <div class="part-eyebrow">PART II</div>
+      <h1>요구사항과 실행</h1>
+      <span class="part-meta">How — 무엇을 만들고, 어떻게 출시하는가</span>
+    </div>
+  </section>
+
+  <!-- 03 기능 요구사항 -->
+  <section class="section" id="requirements">
+    <div class="section-inner">
+      <div class="section-tag"></div>
+      <div class="section-head">
+        <h2><span class="num-prefix">03</span>기능 요구사항</h2>
+        <p class="lede">요구사항은 우선순위로 줄을 세웁니다. 전부 중요하다는 말은 아무것도 중요하지 않다는 말과 같기 때문입니다. P0는 출시 필수, P1은 출시 후 빠른 후속입니다.</p>
+      </div>
+      <div class="block">
+        <div class="block-head"><h3>요구사항 목록</h3></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>요구사항</th><th>우선순위</th><th>비고</th></tr></thead>
+            <tbody>
+              <tr><td class="lbl-cell">R1</td><td>단일 진입점에서 전체 흐름 시작</td><td><span class="badge p0">P0</span></td><td>핵심 가치</td></tr>
+              <tr><td class="lbl-cell">R2</td><td>단계 간 입력값 자동 승계</td><td><span class="badge p0">P0</span></td><td>맥락 유지</td></tr>
+              <tr><td class="lbl-cell">R3</td><td>진행 상태 표시</td><td><span class="badge p0">P0</span></td><td>이탈 방지</td></tr>
+              <tr><td class="lbl-cell">R4</td><td>중단 후 이어하기</td><td><span class="badge p1">P1</span></td><td>후속</td></tr>
+              <tr><td class="lbl-cell">R5</td><td>개인화 추천 진입</td><td><span class="badge p1">P1</span></td><td>후속</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 핵심 사용자 흐름 -->
+  <section class="section" id="userflow">
+    <div class="section-inner">
+      <div class="section-tag"></div>
+      <div class="section-head">
+        <h2><span class="num-prefix">04</span>핵심 사용자 흐름</h2>
+        <p class="lede">통합 후 사용자는 단일 진입점에서 시작해 끊김 없이 목표에 도달합니다. 각 단계는 이전 단계의 입력을 이어받아, 같은 정보를 다시 묻지 않습니다.</p>
+      </div>
+      <div class="block">
+        <div class="block-head"><h3>목표 흐름 (4단계)</h3></div>
+        <div class="flow">
+          <div class="flow-step"><div class="flow-num">01</div><div><div class="flow-name">진입</div><div class="flow-desc">단일 진입점에서 목표 선택</div></div></div>
+          <div class="flow-step"><div class="flow-num">02</div><div><div class="flow-name">입력</div><div class="flow-desc">필요한 정보 한 번만 입력, 이후 자동 승계</div></div></div>
+          <div class="flow-step"><div class="flow-num">03</div><div><div class="flow-name">확인</div><div class="flow-desc">진행 상태와 요약을 한 화면에서 검토</div></div></div>
+          <div class="flow-step"><div class="flow-num">04</div><div><div class="flow-name">완료</div><div class="flow-desc">결과 확인 및 다음 행동 제안</div></div></div>
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <div class="lbl">Note</div>
+        <p>이 흐름은 R1~R3(P0 요구사항)이 모두 충족돼야 성립합니다. 하나라도 빠지면 단계가 다시 늘거나 맥락이 끊겨, 통합의 효과가 사라집니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 실행 계획 -->
+  <section class="section" id="plan">
+    <div class="section-inner">
+      <div class="section-tag"></div>
+      <div class="section-head">
+        <h2><span class="num-prefix">05</span>실행 계획</h2>
+        <p class="lede">실행은 두 단계로 나눕니다. 먼저 P0만으로 최소 동작 버전을 출시해 가설을 검증하고, 지표가 방향을 확인해주면 P1 후속 기능으로 확장합니다.</p>
+      </div>
+      <div class="block">
+        <div class="block-head"><h3>2단계 로드맵</h3></div>
+        <div class="insight-list">
+          <div class="insight-row"><div class="insight-num">1</div><div class="insight-body"><div class="insight-title">Phase 1 · 통합 MVP 출시</div><p>P0 요구사항(R1~R3)만으로 단일 흐름을 구현해 출시합니다. 목표는 평균 단계 수 감소를 실제 데이터로 확인하는 것입니다.</p></div></div>
+          <div class="insight-row"><div class="insight-num">2</div><div class="insight-body"><div class="insight-title">Phase 2 · 후속 확장</div><p>지표가 가설을 지지하면 P1(이어하기·개인화 추천)을 더합니다. 지지하지 않으면 확장 전에 흐름을 먼저 수정합니다.</p></div></div>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="lbl">Highlight</div>
+        <p>핵심 원칙은 "검증 후 확장"입니다. P1을 처음부터 함께 만들지 않는 이유는, 통합이라는 핵심 가설이 맞는지 먼저 확인하지 않으면 후속 기능에 들인 노력이 통째로 헛수고가 될 수 있기 때문입니다.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-row">
+      <div class="footer-left">
+        <div><span class="footer-doc-title">신규 서비스 A — PRD (TEST)</span></div>
+        <div class="footer-line-sub"><span>디자인실</span><span class="dot">·</span><span>UX</span><span class="dot">·</span><span class="mono">2026.05.27</span></div>
+      </div>
+      <span class="footer-confidential">대외비</span>
+    </div>
+    <p class="footer-disclaimer">본 문서는 대외비 자료입니다. 허가된 사용자 이외의 접근 및 배포를 금지합니다.</p>
+    <div class="footer-copyright">© All Rights Reserved.</div>
+  </div>
+</footer>
+
+<button class="scroll-top" type="button" aria-label="맨 위로">
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 11V3M7 3L3 7M7 3L11 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const nav=document.querySelector('.side-nav'),links=document.querySelectorAll('.side-nav-list a'),map={};
+  links.forEach(a=>{map[a.dataset.target]=a;});
+  const sections=Object.keys(map).map(id=>document.getElementById(id)).filter(Boolean);
+  const firstSection=sections[0];
+  const isPartFirst=firstSection&&firstSection.classList.contains('part-divider');
+  const anchorEl=isPartFirst?firstSection:(firstSection?.querySelector('h1, h2')||firstSection);
+  const PIN_TOP=32;
+  function update(){
+    const y=window.scrollY+window.innerHeight*0.3;let active=sections[0];
+    for(const s of sections){if(s.offsetTop<=y)active=s;}
+    links.forEach(a=>a.classList.remove('active'));
+    if(active&&map[active.id])map[active.id].classList.add('active');
+    if(nav&&anchorEl){const anchorY=anchorEl.getBoundingClientRect().top+window.scrollY;nav.style.top=Math.max(PIN_TOP,anchorY-window.scrollY)+'px';}
+  }
+  window.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(update);
+});
+document.addEventListener('DOMContentLoaded',function(){
+  const btn=document.querySelector('.scroll-top');if(!btn)return;
+  const S=Math.max(600,window.innerHeight*0.6);
+  function t(){btn.classList.toggle('visible',window.scrollY>S);}
+  btn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  window.addEventListener('scroll',t,{passive:true});t();
+});
+</script>
+</body>
+</html>

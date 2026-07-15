@@ -1,0 +1,17 @@
+{
+  "name": "pi-make-html",
+  "version": "0.1.0",
+  "description": "에디토리얼 톤의 HTML 보고서/리포트를 생성하는 pi 스킬 패키지 (HTML Design System).",
+  "keywords": [
+    "pi-package",
+    "html",
+    "report",
+    "design-system"
+  ],
+  "license": "MIT",
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  }
+}
