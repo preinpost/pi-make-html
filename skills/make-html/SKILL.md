@@ -7,6 +7,8 @@ description: Generate editorial-tone HTML reports that follow this design system
 
 A skill that captures the design rules (color tokens, typography, cover, side nav, sections, callouts, footer) to follow when building report HTML.
 
+**Visual language: the Anthropic / Claude warm-editorial skin** — the look you get when you ask Claude to generate an HTML report: a warm ivory canvas (never pure white), warm brown-black ink (never cool gray), a single terracotta **clay** accent (`#D97757`, never blue/slate), serif display headlines over a Pretendard sans body, and gently rounded warm cards.
+
 ## When to Apply — READ FIRST
 
 Apply this design system **only when the user explicitly requests HTML report generation.**
@@ -24,9 +26,10 @@ Apply this design system **only when the user explicitly requests HTML report ge
 
 ## Core Principles (Summary)
 
-- Editorial tone — a publication tone, not a marketing page. Minimize gradients and shadows; favor black ink + lines.
-- Typography first — the type scale comes before components. All text uses the defined tokens.
-- One emphasis — limit color emphasis to 1–2 times per page. The default is all `--ink` family.
+- Warm, not clinical — ivory canvas `#faf9f5` (never `#ffffff`), warm brown-black ink `#3D3929` (never cool gray). This warmth is the whole point of the skin.
+- Editorial tone — a literary-journal tone, not a marketing page. Minimize heavy shadows; favor ink + soft warm lines + gentle rounded corners (`--radius: 12px`).
+- Typography first — **serif display headlines** (cover title / PART H1 / section H2) over a **Pretendard sans body**; the type scale comes before components.
+- One accent = clay — the single emphasis color is terracotta `#D97757`. Limit color emphasis to 1–2 times per page; the default is the `--ink` family. Never add a second accent hue.
 - Numbers must be crisp — apply `font-feature-settings: "tnum"` to all numeric text.
 - Don't fear whitespace — generous section spacing.
 - Korean requires word-level line breaking (`word-break: keep-all`).
