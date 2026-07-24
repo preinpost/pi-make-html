@@ -42,7 +42,7 @@ Once you've decided to output HTML, choose **which skin** to apply. Both share t
 | Side nav / TOC | ✅ | ❌ |
 | PART dividers | ✅ (6+ sections) | ❌ |
 | Footer | ✅ full footer | ❌ (optional 1-line) |
-| Body | multi-column components | **single readable column (720px)** |
+| Body | multi-column components | **single readable column (780px)** |
 
 **Mode selection (auto + explicit hybrid):**
 
@@ -1377,7 +1377,7 @@ No `.cover` / `.side-nav` / `main` grid. One centered column.
 ```css
 /* container: single centered column, narrower than report body for readability */
 .article {
-  max-width: 720px;
+  max-width: 780px;
   margin: 0 auto;
   padding: 96px var(--pad-x) 160px;   /* mobile: 64px 24px 96px */
 }
@@ -1437,7 +1437,7 @@ No `.cover` / `.side-nav` / `main` grid. One centered column.
 
 - **Never** emit `.cover`, `.side-nav`, `.part-divider`, or `.footer` in lite mode. If you catch yourself adding a cover to a translation, you picked the wrong mode.
 - Headings in lite mode carry **no top line and no number prefix** — the serif/sans size contrast alone marks hierarchy.
-- Keep the column at **720px** (report body is 800px); prose reads better a touch narrower.
+- Keep the column at **780px** (report body is 800px); prose reads better a touch narrower.
 - Callouts/tables are opt-in by content only. Prefer plain paragraphs.
 - Optional minimal footer: a single hairline (`border-top: 1px solid var(--line-soft)`) + one quiet meta line — no confidential chip, no copyright block. Omit entirely if not needed.
 - Everything else (colors, fonts, `word-break`, `tnum`, `<html lang="ko">`, CDN loads) is identical to report mode.
@@ -1446,7 +1446,7 @@ No `.cover` / `.side-nav` / `main` grid. One centered column.
 
 - [ ] Mode chosen correctly (prose/translation → lite, not report)
 - [ ] No cover / side nav / PART / footer chrome
-- [ ] Single centered `.article` column at 720px
+- [ ] Single centered `.article` column at 780px
 - [ ] Light title header (serif title, optional eyebrow/meta) — not the dark cover
 - [ ] Warm palette + serif/sans typography intact (same tokens as report)
 - [ ] Callouts only if the content has a real standalone takeaway

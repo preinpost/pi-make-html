@@ -22,7 +22,7 @@ Apply this design system **only when the user explicitly requests HTML report ge
 Both modes share the **same warm palette + serif/sans typography**; they differ only in skeleton (chrome).
 
 - **Report mode** (heavy) — cover + side nav + PART dividers + footer. For analysis, planning, PRD, data-heavy decks.
-- **Lite / Article mode** (light) — a single readable 720px column with just a title header. **The default for prose: translations, essays, letters, articles, notes.** No cover, no side nav, no PART, no footer.
+- **Lite / Article mode** (light) — a single readable 780px column with just a title header. **The default for prose: translations, essays, letters, articles, notes.** No cover, no side nav, no PART, no footer.
 
 **Selection (auto + explicit hybrid):**
 1. Explicit request wins — "가볍게 / 아티클 / lite / 문서로" → Lite; "보고서 / 리포트 / 발표자료" → Report.
