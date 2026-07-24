@@ -142,6 +142,7 @@ Once you've decided to output HTML, choose **which skin** to apply. Both share t
 ```css
 --font-sans:    "Pretendard", sans-serif;
 --font-mono:    "Pretendard", sans-serif;   /* mono slot is Pretendard — tnum keeps numbers aligned without swapping fonts */
+--font-code:    ui-monospace, SFMono-Regular, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;   /* REAL monospace — code (`code`/`pre`) only */
 --font-display: "Copernicus", "Tiempos Headline", "Noto Serif KR", Georgia, serif;   /* serif for headlines only */
 ```
 
@@ -1326,6 +1327,7 @@ Check when creating a new report:
 - [ ] Footer: title (bold) + one-line meta (team · name · date) + confidential chip + disclaimer + copyright
 - [ ] Last section ↔ footer `margin-top: 160px`
 - [ ] No interrogative headings ("...?")
+- [ ] **Code follows §15**: inline `code` is a warm pill (`:not(pre) > code`); block `pre` is a dark slate panel with the `pre code` reset (no per-line light box); code uses `--font-code` (real monospace), not `--font-mono`
 
 ---
 
@@ -1450,3 +1452,58 @@ No `.cover` / `.side-nav` / `main` grid. One centered column.
 - [ ] Light title header (serif title, optional eyebrow/meta) — not the dark cover
 - [ ] Warm palette + serif/sans typography intact (same tokens as report)
 - [ ] Callouts only if the content has a real standalone takeaway
+- [ ] Code renders per §15 (inline pill vs dark block — **no per-line pill inside `pre`**)
+
+---
+
+## 15. Code — inline & block (shared by both modes)
+
+> Two distinct treatments that must never bleed into each other. **Inline `code`** is a small warm pill in the flow of a sentence. **Block `pre`** is a dark warm-slate panel. The single most common bug: the inline-pill background gets applied to every line **inside** a code block (each line gets its own light box). The `:not(pre) > code` guard + the `pre code` reset below prevent exactly that.
+
+```css
+/* INLINE code — only when NOT inside a <pre> */
+:not(pre) > code {
+  font-family: var(--font-code);
+  font-size: 0.92em;
+  background: var(--surface-1);      /* warm off-white pill (#F2F0E9) */
+  color: var(--ink);
+  padding: 0.12em 0.4em;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-soft);
+  word-break: break-all;             /* long identifiers don't overflow */
+}
+
+/* BLOCK code — dark warm-slate panel */
+pre {
+  background: var(--brand-slate);    /* #141413 warm near-black (matches cover) */
+  color: var(--brand-ivory);         /* #faf9f5 ivory text */
+  border-radius: var(--radius);      /* 12px */
+  padding: 20px 24px;
+  margin: 24px 0;                    /* in lite body this overrides the 24px flow gap fine */
+  overflow-x: auto;                  /* horizontal scroll, NEVER wrap code */
+  font-size: var(--fs-body-sm);      /* 13px */
+  line-height: 1.6;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* CRITICAL reset — kill the inline pill inside blocks */
+pre code {
+  font-family: var(--font-code);
+  background: none;                  /* ← removes the per-line light box */
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: inherit;                    /* ivory from <pre> */
+  font-size: inherit;
+  border-radius: 0;
+  white-space: pre;                  /* preserve indentation, no wrapping */
+}
+```
+
+### 15.1 Rules
+
+- **Never** style `code` globally with a background — always guard with `:not(pre) > code`, and always ship the `pre code` reset. A dark block with light boxes on every line means this reset is missing.
+- **Code uses `--font-code` (a REAL monospace)**, not `--font-mono` (which is Pretendard). The mono slot is for aligning numbers in tables/meta; source code needs a true fixed-width face.
+- **Block code does not wrap** — `overflow-x: auto` + `white-space: pre`. Never force-wrap long lines.
+- **Monochrome by default** — ivory-on-slate, no syntax-highlight color palette (keeps the warm-editorial restraint). If highlighting is truly needed, tint sparingly with `--ink` family + one `--accent`; never introduce a rainbow theme.
+- Same treatment in **both** report and lite modes — the slate code panel echoes the cover, so it sits naturally on the ivory page.
