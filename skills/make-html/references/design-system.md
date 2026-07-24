@@ -137,23 +137,23 @@ Once you've decided to output HTML, choose **which skin** to apply. Both share t
 
 ### 2.1 Font family — sans body + serif display
 
-> **Two families, split by role (the Claude type voice).** Body, labels, meta, numbers, and small headings (H3/H4) use **Pretendard** (humanist sans). **Display headlines — cover title, PART H1, section H2, and large KPI/insight numbers — use a warm serif** (Copernicus / Tiempos Headline → Korean 명조 fallback). This serif-display + sans-body pairing is the single strongest signal of the Claude look. Do not use other sans families (Inter, Noto Sans) for body, and do not set body copy in serif.
+> **Two families, split by role (the Claude type voice).** Body, labels, meta, numbers, and small headings (H3/H4) use **Pretendard** (humanist sans). **Display headlines — cover title, PART H1, section H2, and large KPI/insight numbers — use a warm serif for Latin** (Copernicus / Tiempos Headline → Georgia). **Korean display characters fall back to Pretendard sans** (no 명조): the serif elegance shows on Latin/numbers while Korean stays crisp. This serif-Latin + sans-Korean/body pairing is the Claude look adapted for Korean. Do not use other sans families (Inter, Noto Sans) for body, and do not set body copy in serif.
 
 ```css
 --font-sans:    "Pretendard", sans-serif;
 --font-mono:    "Pretendard", sans-serif;   /* mono slot is Pretendard — tnum keeps numbers aligned without swapping fonts */
 --font-code:    ui-monospace, SFMono-Regular, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;   /* REAL monospace — code (`code`/`pre`) only */
---font-display: "Copernicus", "Tiempos Headline", "Noto Serif KR", Georgia, serif;   /* serif for headlines only */
+--font-display: "Copernicus", "Tiempos Headline", Georgia, "Pretendard", sans-serif;   /* display headlines: LATIN serif (Georgia), KOREAN Pretendard (per-glyph fallback) */
 ```
 
 CDN load:
 
 ```html
+<!-- REQUIRED: Pretendard drives body AND all Korean text (incl. headlines). Always in <head>. -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&display=swap">
 ```
+
+> **Pretendard is the only required webfont.** Latin display headlines fall back to Georgia (a web-safe serif), and Korean display falls back to Pretendard — so no Google Fonts / Noto Serif KR load is needed. (If you ever *want* a Korean serif look again, re-add `Noto Serif KR` via Google Fonts and put it back in `--font-display` before `"Pretendard"`.)
 
 #### Where serif applies (display only)
 
@@ -164,7 +164,8 @@ CDN load:
 | Section H2 (`.section-head h2`) | Table cells, TOC, footer, badges |
 | Large numerals — `.kpi-value`, `.insight-num` | `.num-prefix`, mono meta, eyebrows (mono/sans) |
 
-- **Korean support**: `"Noto Serif KR"` covers Korean 명조 glyphs; Latin falls to Copernicus/Tiempos (if present) then Georgia. Numbers in serif headings still get `font-feature-settings: "tnum"`.
+- **Korean display = Pretendard (sans), Latin display = serif.** Font matching is per-glyph: Latin headline characters resolve to Copernicus/Tiempos (if present) → Georgia (serif); Korean characters skip those Latin-only serifs and land on **Pretendard** — so Korean headlines render in clean Pretendard sans, not a heavy 명조. This intentional mix keeps the serif elegance for Latin while Korean stays crisp. Numbers in headings still get `font-feature-settings: "tnum"`.
+- **No Korean serif webfont needed** — `Noto Serif KR` is removed from the stack. Only Pretendard (required) drives Korean.
 - **Body stays Pretendard** — serif body copy hurts long-form Korean readability. Serif is reserved for large display sizes (20px+).
 
 #### Weight usage
@@ -1286,7 +1287,7 @@ Each component starts/ends with a **1px black line on top and bottom**. Between 
 Check when creating a new report:
 
 - [ ] `<html lang="ko">` set
-- [ ] Pretendard CDN loaded **and a serif display font** (Noto Serif KR via Google Fonts) for `--font-display`
+- [ ] **Pretendard CDN loaded** (the only required webfont) — drives body + all Korean incl. headlines; `--font-display` = Latin serif (Georgia) + Korean Pretendard, so **no Noto Serif KR / Google Fonts load**
 - [ ] **Warm palette**: page background is ivory `--surface: #faf9f5` (never `#ffffff`); text is warm brown-black `--ink-2: #3D3929`; the one accent is clay `#D97757` (no blue/cool-gray anywhere)
 - [ ] **Cards use `--paper: #fff` fill on the ivory page** (so they lift); rounded via `--radius: 12px` + `overflow:hidden`
 - [ ] `word-break: keep-all; overflow-wrap: break-word;` on the body
