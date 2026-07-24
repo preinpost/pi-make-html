@@ -31,6 +31,29 @@ Design rules to follow when building report HTML.
 2. Even if related material is attached, if the request is "read it / tell me / summarize it", **do not apply.** Respond in Markdown/plain text.
 3. If ambiguous, **ask**: "Should I make this an HTML report, or organize it as text?"
 
+### Two modes — Report vs Lite (pick one before generating)
+
+Once you've decided to output HTML, choose **which skin** to apply. Both share the exact same warm palette + serif/sans typography; they differ only in *chrome* (skeleton).
+
+| | **Report mode** (default heavy) | **Lite / Article mode** (§14) |
+| --- | --- | --- |
+| Best for | analysis, planning, PRD, data-heavy decks | **translation, prose, essays, letters, articles, notes** |
+| Cover page | ✅ dark slate cover | ❌ simple title header |
+| Side nav / TOC | ✅ | ❌ |
+| PART dividers | ✅ (6+ sections) | ❌ |
+| Footer | ✅ full footer | ❌ (optional 1-line) |
+| Body | multi-column components | **single readable column (720px)** |
+
+**Mode selection (auto + explicit hybrid):**
+
+1. **Explicit wins.** If the user says "가볍게 / 아티클로 / lite / 심플하게 / 문서로" → **Lite**. If they say "보고서 / 리포트 / 발표자료 / deck" → **Report**.
+2. **Otherwise auto-detect by content type.**
+   - Prose-like input — a **translation**, an essay, a letter, an article, story, or plain running text → **Lite mode.** Do **not** wrap it in a cover / side nav / PART / footer.
+   - Structured/analytical input — analysis, planning, metrics, comparisons, multi-section decks → **Report mode.**
+3. **When still unsure, default to Lite** (it is the less intrusive skin) or ask: "보고서 골격으로 갈까, 가벼운 아티클로 갈까?"
+
+> ⚠️ **Common misfire:** asking to "translate this and make it HTML" is a **Lite** job, not a Report. Never auto-attach a cover / side nav / PART / footer to a translation.
+
 ---
 
 ## 0. Principles
@@ -1303,3 +1326,127 @@ Check when creating a new report:
 - [ ] Footer: title (bold) + one-line meta (team · name · date) + confidential chip + disclaimer + copyright
 - [ ] Last section ↔ footer `margin-top: 160px`
 - [ ] No interrogative headings ("...?")
+
+---
+
+## 14. Lite / Article Mode (prose, translations, essays)
+
+> The **default skin for prose** — translations, essays, letters, articles, notes. It keeps the entire warm-editorial voice (ivory canvas, clay accent, serif display + Pretendard body, `--radius`, Korean word-break) but **drops every report device**: no cover, no side nav, no PART dividers, no footer. Just a title and a single readable column. See the mode-selection rule in “When to Apply → Two modes.”
+
+### 14.1 What it keeps vs drops
+
+| Keep (the pretty part) | Drop (the report chrome) |
+| --- | --- |
+| Warm palette + tokens (`--surface`, `--ink-*`, `--accent`) | Dark `.cover` page → replaced by a light title header |
+| Serif display headline + Pretendard body | `.side-nav` / TOC (and its JS) |
+| `--radius` cards, callouts (**sparingly**) | `.part-divider` (PART I/II grouping) |
+| Korean rules (`word-break: keep-all`) | `.footer` (optional: one hairline meta line) |
+| Numeric `tnum` | `.scroll-top` button (optional, may keep) |
+
+> **Callouts, tables, KPI, flow** are still available — but only when the content actually contains that data. For a plain translation, expect **zero** callouts: title + paragraphs is the whole document.
+
+### 14.2 Skeleton
+
+No `.cover` / `.side-nav` / `main` grid. One centered column.
+
+```html
+<body class="lite">
+  <article class="article">
+    <header class="article-header">
+      <!-- eyebrow is optional: source language, doc kind, etc. -->
+      <div class="article-eyebrow">번역 · Original title</div>
+      <h1 class="article-title">문서 제목</h1>
+      <!-- meta is optional: one quiet line (author / source / date) -->
+      <p class="article-meta">원저 · 출처 · <span class="mono">2026.05.27</span></p>
+    </header>
+
+    <div class="article-body">
+      <p>본문 문단…</p>
+      <h2>소제목 (필요할 때만)</h2>
+      <p>본문 문단…</p>
+      <h3>기다린 러닝 헤딩</h3>
+      <p>본문 문단…</p>
+      <!-- add a .callout ONLY if there is a genuine standalone takeaway -->
+    </div>
+  </article>
+</body>
+```
+
+### 14.3 Style (reuses existing tokens — no new palette)
+
+```css
+/* container: single centered column, narrower than report body for readability */
+.article {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 96px var(--pad-x) 160px;   /* mobile: 64px 24px 96px */
+}
+
+/* light title header — replaces the dark cover */
+.article-header { margin-bottom: 64px; }
+.article-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-micro);       /* 12px */
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--accent-deep);        /* the one spot of clay */
+  margin-bottom: 16px;
+}
+.article-title {
+  font-family: var(--font-display); /* serif display */
+  font-weight: 600;
+  font-size: var(--fs-display-2);    /* 40px — lighter than the 56px cover title */
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.article-meta {
+  margin-top: 16px;
+  font-size: var(--fs-body-sm);      /* 13px */
+  color: var(--ink-4);
+}
+
+/* body: comfortable long-form rhythm */
+.article-body { font-size: var(--fs-body); line-height: var(--lh-loose); color: var(--ink-2); }
+.article-body > * + * { margin-top: 24px; }         /* paragraph gap */
+.article-body p { line-height: var(--lh-loose); }
+.article-body b, .article-body strong { color: var(--ink); font-weight: 700; }
+
+/* headings: NO section line, NO num-prefix — lighter than report H2/H3 */
+.article-body h2 {
+  font-family: var(--font-display); /* serif keeps the editorial voice */
+  font-weight: 600;
+  font-size: var(--fs-h3);           /* 20px serif subhead over 15px sans body */
+  line-height: var(--lh-snug);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-top: 48px;                  /* no border-top in lite mode */
+}
+.article-body h3 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--fs-body);         /* 15px run-in style */
+  color: var(--ink);
+  margin-top: 32px;
+}
+.article-body h2:first-child,
+.article-body h3:first-child { margin-top: 0; }
+```
+
+### 14.4 Rules
+
+- **Never** emit `.cover`, `.side-nav`, `.part-divider`, or `.footer` in lite mode. If you catch yourself adding a cover to a translation, you picked the wrong mode.
+- Headings in lite mode carry **no top line and no number prefix** — the serif/sans size contrast alone marks hierarchy.
+- Keep the column at **720px** (report body is 800px); prose reads better a touch narrower.
+- Callouts/tables are opt-in by content only. Prefer plain paragraphs.
+- Optional minimal footer: a single hairline (`border-top: 1px solid var(--line-soft)`) + one quiet meta line — no confidential chip, no copyright block. Omit entirely if not needed.
+- Everything else (colors, fonts, `word-break`, `tnum`, `<html lang="ko">`, CDN loads) is identical to report mode.
+
+### 14.5 Lite checklist
+
+- [ ] Mode chosen correctly (prose/translation → lite, not report)
+- [ ] No cover / side nav / PART / footer chrome
+- [ ] Single centered `.article` column at 720px
+- [ ] Light title header (serif title, optional eyebrow/meta) — not the dark cover
+- [ ] Warm palette + serif/sans typography intact (same tokens as report)
+- [ ] Callouts only if the content has a real standalone takeaway

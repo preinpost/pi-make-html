@@ -17,6 +17,20 @@ Apply this design system **only when the user explicitly requests HTML report ge
 - ❌ Do not apply: simple Q&A, summaries/notes, read-only requests ("read it for me / tell me / check it"), data/table-only needs, code review/debugging, or when another format (PPT, DOCX, Markdown, etc.) is specified.
 - If ambiguous, ask: "Should I make this an HTML report, or organize it as text?"
 
+## Two Modes — pick one before generating
+
+Both modes share the **same warm palette + serif/sans typography**; they differ only in skeleton (chrome).
+
+- **Report mode** (heavy) — cover + side nav + PART dividers + footer. For analysis, planning, PRD, data-heavy decks.
+- **Lite / Article mode** (light) — a single readable 720px column with just a title header. **The default for prose: translations, essays, letters, articles, notes.** No cover, no side nav, no PART, no footer.
+
+**Selection (auto + explicit hybrid):**
+1. Explicit request wins — "가볍게 / 아티클 / lite / 문서로" → Lite; "보고서 / 리포트 / 발표자료" → Report.
+2. Otherwise auto-detect: prose-like input (a translation, essay, letter, article) → **Lite**; structured/analytical input → **Report**.
+3. Unsure → default to Lite or ask.
+
+> ⚠️ Asking to "translate this into HTML" is a **Lite** job. Never wrap a translation in a cover / side nav / PART / footer. See design-system.md §14 for the lite skeleton and CSS.
+
 ## How to Use
 
 1. **Read the full ruleset first.** Before generating, read [references/design-system.md](references/design-system.md) from start to finish. Color tokens, the type scale, layout tokens, and component markup are all defined there; use only the defined tokens and never arbitrary values.
